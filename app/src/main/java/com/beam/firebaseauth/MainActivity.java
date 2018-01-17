@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button btnUserRegister;
     private TextView tvSignIn;
 
-    private final String TAG = "Log";
+    private final String TAG = "ERROR";
 
     private FirebaseAuth firebaseAuth;
 
@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             registerUser();
         }
         if (v == tvSignIn) {
+            finish();
             startActivity(new Intent(this, LoginActivity.class));
         }
     }
@@ -76,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         if (TextUtils.isEmpty(password)) {
-            Toast.makeText(this, "Password is empty", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please enter password", Toast.LENGTH_SHORT).show();
             return;
         }
 
