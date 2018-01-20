@@ -5,14 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.beam.firebaseauth.MainActivity">
+    tools:context="com.beam.firebaseauth.StoreRegistActivity">
 
     <TextView
         android:textSize="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:text="Registration" />
+        android:text="Store Registration" />
 
     <EditText
         android:inputType="textEmailAddress"
@@ -29,8 +29,8 @@
         android:layout_height="wrap_content" />
 
     <Button
-        android:text="Register for user"
-        android:id="@+id/btnUserRegister"
+        android:text="Register for Store"
+        android:id="@+id/btnStoreRegister"
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />

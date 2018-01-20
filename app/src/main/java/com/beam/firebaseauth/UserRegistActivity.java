@@ -2,7 +2,6 @@ package com.beam.firebaseauth;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.nfc.Tag;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,7 +18,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class UserRegistActivity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText editTextEmail;
     private EditText editTextPassword;
@@ -35,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_user_regist);
 
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -91,11 +90,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     progressDialog.dismiss();
                     finish();
                     startActivity(new Intent(getApplicationContext(), UserProfileActivity.class));
-                    Toast.makeText(MainActivity.this, "Register successful", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UserRegistActivity.this, "Register successful", Toast.LENGTH_SHORT).show();
                 } else {
                     progressDialog.dismiss();
                     Log.e(TAG, "onComplete: Failed =" + task.getException().getMessage());
-                    Toast.makeText(MainActivity.this, "Fail", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UserRegistActivity.this, "Fail", Toast.LENGTH_SHORT).show();
                 }
             }
         });

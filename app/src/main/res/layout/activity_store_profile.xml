@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.beam.firebaseauth.UserProfileActivity">
+    tools:context="com.beam.firebaseauth.StoreProfileActivity">
 
     <TextView
         android:text="Email"
@@ -15,7 +15,7 @@
         android:layout_height="wrap_content" />
 
     <EditText
-        android:hint="Full Name"
+        android:hint="Store Name"
         android:id="@+id/editTextName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -25,6 +25,26 @@
         android:id="@+id/editTextPhoneNumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:hint="Open"
+            android:id="@+id/openTime"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:hint="Close"
+            android:id="@+id/closeTime"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
     <Button
         android:text="Save Information"

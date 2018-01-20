@@ -18,8 +18,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
-        <activity android:name=".UserProfileActivity"></activity>
+        <activity android:name=".UserRegistActivity" />
+        <activity android:name=".UserProfileActivity" />
+        <activity android:name=".StoreRegistActivity" />
+        <activity android:name=".StoreProfileActivity"></activity>
     </application>
 
 </manifest>

@@ -6,73 +6,68 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class StoreRegistActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private final String TAG = "ERROR";
 
     private EditText editTextEmail;
     private EditText editTextPassword;
-    private Button btnSignIn;
-    private Button btnUserSignUp;
-    private Button btnStoreSignUp;
-
-
-    private ProgressDialog progressDialog;
+    private Button btnStoreRegister;
+    private TextView tvSignIn;
 
     private FirebaseAuth firebaseAuth;
+
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_store_regist);
 
         firebaseAuth = FirebaseAuth.getInstance();
 
-        //now only login to user profile must separate user and store
         if (firebaseAuth.getCurrentUser() != null) {
+            //go to profile activity
             finish();
-            startActivity(new Intent(getApplicationContext(), UserProfileActivity.class));
+            startActivity(new Intent(getApplicationContext(), StoreProfileActivity.class));
         }
 
         progressDialog = new ProgressDialog(this);
 
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextPassword = findViewById(R.id.editTextPassword);
+        btnStoreRegister = findViewById(R.id.btnStoreRegister);
+        tvSignIn = findViewById(R.id.tvSignIn);
 
-        btnSignIn = findViewById(R.id.btnSignIn);
-        btnUserSignUp = findViewById(R.id.btnUserSignUp);
-        btnStoreSignUp = findViewById(R.id.btnStoreSignUp);
-
-        btnSignIn.setOnClickListener(this);
-        btnUserSignUp.setOnClickListener(this);
+        btnStoreRegister.setOnClickListener(this);
+        tvSignIn.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        if (v == btnSignIn) {
-            //now only login to user profile must separate user and store
-            userLogin();
+        if (v == btnStoreRegister){
+            registerStore();
         }
-        if (v == btnUserSignUp) {
+        if (v == tvSignIn){
             finish();
-            startActivity(new Intent(this, UserRegistActivity.class));
-        }
-        if (v == btnStoreSignUp){
-            finish();
-            startActivity(new Intent(this, StoreRegistActivity.class));
+            startActivity(new Intent(this, LoginActivity.class));
         }
     }
 
-    //now only login to user profile must separate user and store
-    private void userLogin() {
+    private void registerStore() {
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
 
@@ -86,19 +81,25 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             return;
         }
 
-        progressDialog.setMessage("Logging in now, Please wait ...");
+        progressDialog.setMessage("Registering Store ...");
         progressDialog.show();
 
-        firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+
+        firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                progressDialog.dismiss();
                 if (task.isSuccessful()) {
-                    //start profile activity
+                    progressDialog.dismiss();
                     finish();
-                    startActivity(new Intent(getApplicationContext(), UserProfileActivity.class));
+                    startActivity(new Intent(getApplicationContext(), StoreProfileActivity.class));
+                    Toast.makeText(StoreRegistActivity.this, "Register successful", Toast.LENGTH_SHORT).show();
+                } else {
+                    progressDialog.dismiss();
+                    Log.e(TAG, "onComplete: Failed =" + task.getException().getMessage());
+                    Toast.makeText(StoreRegistActivity.this, "Fail", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+
     }
 }
