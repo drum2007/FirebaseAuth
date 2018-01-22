@@ -5,14 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.beam.firebaseauth.LoginActivity">
+    tools:context="com.beam.firebaseauth.UserRegistActivity">
 
     <TextView
         android:textSize="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:text="Login" />
+        android:text="User Registration" />
 
     <EditText
         android:inputType="textEmailAddress"
@@ -29,22 +29,15 @@
         android:layout_height="wrap_content" />
 
     <Button
-        android:text="Sign In"
-        android:id="@+id/btnSignIn"
+        android:text="Register for user"
+        android:id="@+id/btnUserRegister"
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <Button
-        android:text="Register for User"
-        android:id="@+id/btnUserSignUp"
-        android:layout_gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <Button
-        android:text="Register for Store"
-        android:id="@+id/btnStoreSignUp"
+    <TextView
+        android:text="Already have account? Sign In here"
+        android:id="@+id/tvSignIn"
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
