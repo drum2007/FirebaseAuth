@@ -21,7 +21,8 @@
         <activity android:name=".UserRegistActivity" />
         <activity android:name=".UserProfileActivity" />
         <activity android:name=".StoreRegistActivity" />
-        <activity android:name=".StoreProfileActivity"></activity>
+        <activity android:name=".StoreProfileActivity" />
+        <activity android:name=".SelectStoreActivity"></activity>
     </application>
 
 </manifest>
