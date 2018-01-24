@@ -8,42 +8,43 @@
     tools:context="com.beam.firebaseauth.LoginActivity">
 
     <TextView
-        android:textSize="30dp"
+        android:textSize="30sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:text="Login" />
+        android:text="@string/login"
+        tools:ignore="SpUsage" />
 
     <EditText
         android:inputType="textEmailAddress"
-        android:hint="Enter your email"
+        android:hint="@string/enter_your_email"
         android:id="@+id/editTextEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <EditText
         android:inputType="textPassword"
-        android:hint="Enter your password"
+        android:hint="@string/enter_your_password"
         android:id="@+id/editTextPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <Button
-        android:text="Sign In"
+        android:text="@string/sign_in"
         android:id="@+id/btnSignIn"
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <Button
-        android:text="Register for User"
+        android:text="@string/register_for_user"
         android:id="@+id/btnUserSignUp"
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <Button
-        android:text="Register for Store"
+        android:text="@string/register_for_store"
         android:id="@+id/btnStoreSignUp"
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"

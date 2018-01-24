@@ -8,21 +8,22 @@
     tools:context="com.beam.firebaseauth.StoreProfileActivity">
 
     <TextView
-        android:text="Email"
-        android:id="@+id/tvUserEmail"
+        android:text="@string/email"
+        android:id="@+id/tvStoreEmail"
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <EditText
-        android:hint="Store Name"
+        android:hint="@string/store_name"
         android:id="@+id/editTextName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <EditText
-        android:hint="Phone Number"
+        android:hint="@string/phone_number"
         android:id="@+id/editTextPhoneNumber"
+        android:inputType="phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -32,29 +33,31 @@
         android:layout_height="wrap_content">
 
         <EditText
-            android:hint="Open"
+            android:hint="@string/open"
             android:id="@+id/openTime"
             android:layout_weight="1"
+            android:inputType="time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <EditText
-            android:hint="Close"
+            android:hint="@string/close"
             android:id="@+id/closeTime"
             android:layout_weight="1"
+            android:inputType="time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>
 
     <Button
-        android:text="Save Information"
+        android:text="@string/save_information"
         android:id="@+id/btnSaveInfo"
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <Button
-        android:text="Logout"
+        android:text="@string/logout"
         android:id="@+id/btnLogout"
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"

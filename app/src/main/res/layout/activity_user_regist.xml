@@ -8,35 +8,35 @@
     tools:context="com.beam.firebaseauth.UserRegistActivity">
 
     <TextView
-        android:textSize="30dp"
+        android:textSize="30sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:text="User Registration" />
+        android:text="@string/user_registration" />
 
     <EditText
         android:inputType="textEmailAddress"
-        android:hint="Enter your email"
+        android:hint="@string/enter_your_email"
         android:id="@+id/editTextEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <EditText
         android:inputType="textPassword"
-        android:hint="Enter your password"
+        android:hint="@string/enter_your_password"
         android:id="@+id/editTextPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <Button
-        android:text="Register for user"
+        android:text="@string/register_for_user"
         android:id="@+id/btnUserRegister"
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <TextView
-        android:text="Already have account? Sign In here"
+        android:text="@string/already_have_account_sign_in_here"
         android:id="@+id/tvSignIn"
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"

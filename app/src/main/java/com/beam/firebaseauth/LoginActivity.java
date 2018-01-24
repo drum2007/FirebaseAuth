@@ -53,6 +53,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         btnSignIn.setOnClickListener(this);
         btnUserSignUp.setOnClickListener(this);
+        btnStoreSignUp.setOnClickListener(this);
     }
 
     @Override

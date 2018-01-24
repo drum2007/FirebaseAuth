@@ -41,13 +41,13 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
-        editTextPhoneNumber = findViewById(R.id.editTextPhoneNumber);
-        editTextName = findViewById(R.id.editTextName);
-        btnSaveInfo = findViewById(R.id.btnSaveInfo);
-
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
         tvUserEmail = findViewById(R.id.tvUserEmail);
+        editTextPhoneNumber = findViewById(R.id.editTextPhoneNumber);
+        editTextName = findViewById(R.id.editTextName);
+
+        btnSaveInfo = findViewById(R.id.btnSaveInfo);
         btnLogout = findViewById(R.id.btnLogout);
 
         tvUserEmail.setText("Welcome " + user.getEmail());

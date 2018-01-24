@@ -5,4 +5,16 @@ package com.beam.firebaseauth;
  */
 
 public class StoreInformation {
+
+    public String storeName;
+    public String phoneNumber;
+    public String openTime;
+    public String closeTime;
+
+    public StoreInformation(String storeName, String phoneNumber, String openTime, String closeTime){
+        this.storeName = storeName;
+        this.phoneNumber = phoneNumber;
+        this.openTime = openTime;
+        this.closeTime = closeTime;
+    }
 }
