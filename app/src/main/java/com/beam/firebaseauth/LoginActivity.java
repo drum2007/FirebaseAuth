@@ -23,6 +23,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Button btnSignIn;
     private Button btnUserSignUp;
     private Button btnStoreSignUp;
+    private Button btnStoreSelect;
 
 
     private ProgressDialog progressDialog;
@@ -51,9 +52,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         btnUserSignUp = findViewById(R.id.btnUserSignUp);
         btnStoreSignUp = findViewById(R.id.btnStoreSignUp);
 
+        btnStoreSelect = findViewById(R.id.btnStoreSelect);
+
         btnSignIn.setOnClickListener(this);
         btnUserSignUp.setOnClickListener(this);
         btnStoreSignUp.setOnClickListener(this);
+        btnStoreSelect.setOnClickListener(this);
     }
 
     @Override
@@ -69,6 +73,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (v == btnStoreSignUp){
             finish();
             startActivity(new Intent(this, StoreRegistActivity.class));
+        }
+        if (v == btnStoreSelect){
+            finish();
+            startActivity(new Intent(this,SelectStoreActivity.class));
         }
     }
 
