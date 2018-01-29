@@ -21,10 +21,10 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
     private Button btnSaveInfo;
     private Button btnLogout;
 
-    private DatabaseReference databaseReference;
     private EditText editTextName;
     private EditText editTextPhoneNumber;
 
+    private DatabaseReference databaseReference;
     private FirebaseAuth firebaseAuth;
 
     @Override
@@ -58,23 +58,23 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
 
     private void saveUserInformation(){
         String name = editTextName.getText().toString().trim();
-        String PhoneNumber = editTextPhoneNumber.getText().toString().trim();
+        String phoneNumber = editTextPhoneNumber.getText().toString().trim();
 
         if (TextUtils.isEmpty(name)){
             Toast.makeText(this, "Could not save information, Name is empty", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (TextUtils.isEmpty(PhoneNumber)){
+        if (TextUtils.isEmpty(phoneNumber)){
             Toast.makeText(this, "Could not save information, Address is empty", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        UserInformation userInformation = new UserInformation(name, PhoneNumber);
+        UserInformation userInformation = new UserInformation(name, phoneNumber);
 
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
-        databaseReference.child(user.getUid()).setValue(userInformation);
+        databaseReference.child("User").child(user.getUid()).setValue(userInformation);
 
         Toast.makeText(this, "Information Saved ...",Toast.LENGTH_SHORT).show();
     }

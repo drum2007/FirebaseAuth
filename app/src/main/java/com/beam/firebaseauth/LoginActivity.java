@@ -15,6 +15,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -25,9 +31,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Button btnStoreSignUp;
     private Button btnStoreSelect;
 
-
     private ProgressDialog progressDialog;
 
+    private DatabaseReference databaseReference;
     private FirebaseAuth firebaseAuth;
 
     @Override
@@ -36,12 +42,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_login);
 
         firebaseAuth = FirebaseAuth.getInstance();
-
-        //now only login to user profile must separate user and store
-        if (firebaseAuth.getCurrentUser() != null) {
-            finish();
-            startActivity(new Intent(getApplicationContext(), UserProfileActivity.class));
-        }
+        databaseReference = FirebaseDatabase.getInstance().getReference();
 
         progressDialog = new ProgressDialog(this);
 
@@ -70,17 +71,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             finish();
             startActivity(new Intent(this, UserRegistActivity.class));
         }
-        if (v == btnStoreSignUp){
+        if (v == btnStoreSignUp) {
             finish();
             startActivity(new Intent(this, StoreRegistActivity.class));
         }
-        if (v == btnStoreSelect){
+        if (v == btnStoreSelect) {
             finish();
-            startActivity(new Intent(this,SelectStoreActivity.class));
+            startActivity(new Intent(this, SelectStoreActivity.class));
         }
     }
 
-    //now only login to user profile must separate user and store
     private void userLogin() {
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
@@ -103,11 +103,40 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             public void onComplete(@NonNull Task<AuthResult> task) {
                 progressDialog.dismiss();
                 if (task.isSuccessful()) {
-                    //start profile activity
-                    finish();
-                    startActivity(new Intent(getApplicationContext(), UserProfileActivity.class));
+                    //check if it is user or store
+                    Query userQuery = databaseReference.child("User").orderByKey().equalTo(firebaseAuth.getCurrentUser().getUid());
+                    userQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.getValue() != null){
+                                finish();
+                                startActivity(new Intent(getApplicationContext(), UserProfileActivity.class));
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                    Query storeQuery = databaseReference.child("Store").orderByKey().equalTo(firebaseAuth.getCurrentUser().getUid());
+                    storeQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.getValue() != null){
+                                finish();
+                                startActivity(new Intent(getApplicationContext(), StoreProfileActivity.class));
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
                 }
             }
         });
     }
+
 }

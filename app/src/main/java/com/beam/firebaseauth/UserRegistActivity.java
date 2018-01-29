@@ -17,6 +17,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class UserRegistActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -37,12 +40,6 @@ public class UserRegistActivity extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.activity_user_regist);
 
         firebaseAuth = FirebaseAuth.getInstance();
-
-        if (firebaseAuth.getCurrentUser() != null) {
-            //go to profile activity
-            finish();
-            startActivity(new Intent(getApplicationContext(), UserProfileActivity.class));
-        }
 
         progressDialog = new ProgressDialog(this);
 
@@ -80,6 +77,7 @@ public class UserRegistActivity extends AppCompatActivity implements View.OnClic
             return;
         }
 
+
         progressDialog.setMessage("Registering User ...");
         progressDialog.show();
 
@@ -100,4 +98,5 @@ public class UserRegistActivity extends AppCompatActivity implements View.OnClic
         });
 
     }
+
 }

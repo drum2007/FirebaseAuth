@@ -39,12 +39,6 @@ public class StoreRegistActivity extends AppCompatActivity implements View.OnCli
 
         firebaseAuth = FirebaseAuth.getInstance();
 
-        if (firebaseAuth.getCurrentUser() != null) {
-            //go to profile activity
-            finish();
-            startActivity(new Intent(getApplicationContext(), StoreProfileActivity.class));
-        }
-
         progressDialog = new ProgressDialog(this);
 
         editTextEmail = findViewById(R.id.editTextEmail);

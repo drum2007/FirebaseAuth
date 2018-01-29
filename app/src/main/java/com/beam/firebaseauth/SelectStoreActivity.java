@@ -41,7 +41,7 @@ public class SelectStoreActivity extends AppCompatActivity implements View.OnCli
 
 
         if (v == bt1){
-            Query storeQuery = sDatabase.child("Store").child("luygRMe2AfYdFoVNPsLpqnXARjV2");
+            Query storeQuery = sDatabase.child("Store").orderByChild("closeTime").equalTo("sssss");
             storeQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
