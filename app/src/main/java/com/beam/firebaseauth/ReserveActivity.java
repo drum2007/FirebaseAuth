@@ -81,6 +81,7 @@ public class ReserveActivity extends AppCompatActivity implements DatePickerDial
             Toast.makeText(this, "Please enter number of people", Toast.LENGTH_SHORT).show();
         }
 
+        //must save under store uid need to add store uid
         Confirmation confirmation = new Confirmation(numberOfPeople, year, month, dayOfMonth);
 
         databaseReference.child("ReserveInfo").setValue(confirmation);
