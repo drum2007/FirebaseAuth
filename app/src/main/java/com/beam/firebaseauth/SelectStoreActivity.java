@@ -1,5 +1,6 @@
 package com.beam.firebaseauth;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -17,31 +18,31 @@ public class SelectStoreActivity extends AppCompatActivity implements View.OnCli
 
     private Button bt1;
     private Button bt2;
-    private Button bt3;
+//    private Button bt3;
 
-    private DatabaseReference sDatabase;
+    private DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_store);
 
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+
         bt1 = findViewById(R.id.bt1);
         bt2 = findViewById(R.id.bt2);
-        bt3 = findViewById(R.id.bt3);
+//        bt3 = findViewById(R.id.bt3);
 
         bt1.setOnClickListener(this);
         bt2.setOnClickListener(this);
-        bt3.setOnClickListener(this);
+//        bt3.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        sDatabase = FirebaseDatabase.getInstance().getReference();
 
-
-        if (v == bt1){
-            Query storeQuery = sDatabase.child("Store").orderByChild("closeTime").equalTo("sssss");
+        if (v == bt1) {
+            Query storeQuery = databaseReference.child("Store").orderByChild("closeTime");
             storeQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -54,13 +55,9 @@ public class SelectStoreActivity extends AppCompatActivity implements View.OnCli
                 }
             });
         }
-        if (v == bt2){
-
+        if (v == bt2) {
+            startActivity(new Intent(this, ReserveActivity.class));
         }
-        if (v == bt3){
-
-        }
-
     }
 
 }

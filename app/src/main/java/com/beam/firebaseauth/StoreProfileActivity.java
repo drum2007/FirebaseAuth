@@ -36,7 +36,7 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
 
         firebaseAuth = FirebaseAuth.getInstance();
 
-        if (firebaseAuth.getCurrentUser() == null){
+        if (firebaseAuth.getCurrentUser() == null) {
             finish();
             startActivity(new Intent(this, LoginActivity.class));
         }
@@ -62,12 +62,12 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
 
     @Override
     public void onClick(View v) {
-        if (v == btnLogout){
+        if (v == btnLogout) {
             firebaseAuth.signOut();
             finish();
             startActivity(new Intent(this, LoginActivity.class));
         }
-        if (v == btnSaveInfo){
+        if (v == btnSaveInfo) {
             saveStoreInformation();
         }
     }
@@ -79,27 +79,27 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
         String close = closeTime.getText().toString().trim();
         String capacity = storeCapacity.getText().toString().trim();
 
-        if (TextUtils.isEmpty(storeName)){
+        if (TextUtils.isEmpty(storeName)) {
             Toast.makeText(this, "Could not save information, Name is empty", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (TextUtils.isEmpty(phoneNumber)){
+        if (TextUtils.isEmpty(phoneNumber)) {
             Toast.makeText(this, "Could not save information, Address is empty", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (TextUtils.isEmpty(open)){
+        if (TextUtils.isEmpty(open)) {
             Toast.makeText(this, "Could not save information, Open time is empty", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (TextUtils.isEmpty(close)){
+        if (TextUtils.isEmpty(close)) {
             Toast.makeText(this, "Could not save information, Close time is empty", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (TextUtils.isEmpty(capacity)){
+        if (TextUtils.isEmpty(capacity)) {
             Toast.makeText(this, "Could not save information, Capacity is empty", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -110,6 +110,6 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
 
         databaseReference.child("Store").child(user.getUid()).setValue(storeInformation);
 
-        Toast.makeText(this, "Information Saved ...",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Information Saved", Toast.LENGTH_SHORT).show();
     }
 }

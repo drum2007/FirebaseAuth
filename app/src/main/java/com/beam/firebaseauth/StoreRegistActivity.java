@@ -52,10 +52,10 @@ public class StoreRegistActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void onClick(View v) {
-        if (v == btnStoreRegister){
+        if (v == btnStoreRegister) {
             registerStore();
         }
-        if (v == tvSignIn){
+        if (v == tvSignIn) {
             finish();
             startActivity(new Intent(this, LoginActivity.class));
         }

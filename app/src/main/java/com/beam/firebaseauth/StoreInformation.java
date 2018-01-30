@@ -12,7 +12,7 @@ public class StoreInformation {
     public String closeTime;
     public String capacity;
 
-    public StoreInformation(String storeName, String phoneNumber, String openTime, String closeTime, String capacity){
+    public StoreInformation(String storeName, String phoneNumber, String openTime, String closeTime, String capacity) {
         this.storeName = storeName;
         this.phoneNumber = phoneNumber;
         this.openTime = openTime;

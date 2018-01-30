@@ -34,7 +34,7 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
 
         firebaseAuth = FirebaseAuth.getInstance();
 
-        if (firebaseAuth.getCurrentUser() == null){
+        if (firebaseAuth.getCurrentUser() == null) {
             finish();
             startActivity(new Intent(this, LoginActivity.class));
         }
@@ -56,17 +56,17 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
         btnLogout.setOnClickListener(this);
     }
 
-    private void saveUserInformation(){
+    private void saveUserInformation() {
         String name = editTextName.getText().toString().trim();
         String phoneNumber = editTextPhoneNumber.getText().toString().trim();
 
-        if (TextUtils.isEmpty(name)){
+        if (TextUtils.isEmpty(name)) {
             Toast.makeText(this, "Could not save information, Name is empty", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (TextUtils.isEmpty(phoneNumber)){
-            Toast.makeText(this, "Could not save information, Address is empty", Toast.LENGTH_SHORT).show();
+        if (TextUtils.isEmpty(phoneNumber)) {
+            Toast.makeText(this, "Could not save information, Phone number is empty", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -76,18 +76,18 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
 
         databaseReference.child("User").child(user.getUid()).setValue(userInformation);
 
-        Toast.makeText(this, "Information Saved ...",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Information Saved", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onClick(View v) {
-        if (v == btnLogout){
+        if (v == btnLogout) {
             firebaseAuth.signOut();
             finish();
             startActivity(new Intent(this, LoginActivity.class));
         }
 
-        if (v == btnSaveInfo){
+        if (v == btnSaveInfo) {
             saveUserInformation();
         }
     }

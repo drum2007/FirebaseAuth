@@ -107,7 +107,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     userQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            if (dataSnapshot.getValue() != null){
+                            if (dataSnapshot.getValue() != null) {
                                 finish();
                                 startActivity(new Intent(getApplicationContext(), UserProfileActivity.class));
                             }
@@ -122,7 +122,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     storeQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            if (dataSnapshot.getValue() != null){
+                            if (dataSnapshot.getValue() != null) {
                                 finish();
                                 startActivity(new Intent(getApplicationContext(), StoreProfileActivity.class));
                             }
@@ -133,8 +133,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                         }
                     });
-                }else {
-                    Toast.makeText(getApplicationContext(),"Could not sign in, please check your username and password",Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Could not sign in, please check your username and password", Toast.LENGTH_LONG).show();
                 }
             }
         });
