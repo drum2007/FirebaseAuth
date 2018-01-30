@@ -1,6 +1,7 @@
 package com.beam.firebaseauth;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -87,15 +88,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         if (TextUtils.isEmpty(email)) {
             Toast.makeText(this, "Please enter email", Toast.LENGTH_SHORT).show();
-            return;
         }
 
         if (TextUtils.isEmpty(password)) {
             Toast.makeText(this, "Please enter password", Toast.LENGTH_SHORT).show();
-            return;
         }
 
-        progressDialog.setMessage("Logging in now, Please wait ...");
+        progressDialog.setMessage("Signing in, Please wait ...");
         progressDialog.show();
 
         firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -134,6 +133,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                         }
                     });
+                }else {
+                    Toast.makeText(getApplicationContext(),"Could not sign in, please check your username and password",Toast.LENGTH_LONG).show();
                 }
             }
         });

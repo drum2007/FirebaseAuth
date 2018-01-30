@@ -21,6 +21,7 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
     private EditText editTextPhoneNumber;
     private EditText openTime;
     private EditText closeTime;
+    private EditText storeCapacity;
     private Button btnSaveInfo;
     private TextView tvStoreEmail;
     private Button btnLogout;
@@ -49,6 +50,7 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
         editTextPhoneNumber = findViewById(R.id.editTextPhoneNumber);
         openTime = findViewById(R.id.openTime);
         closeTime = findViewById(R.id.closeTime);
+        storeCapacity = findViewById(R.id.storeCapacity);
 
         btnSaveInfo = findViewById(R.id.btnSaveInfo);
         btnLogout = findViewById(R.id.btnLogout);
@@ -75,6 +77,7 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
         String phoneNumber = editTextPhoneNumber.getText().toString().trim();
         String open = openTime.getText().toString().trim();
         String close = closeTime.getText().toString().trim();
+        String capacity = storeCapacity.getText().toString().trim();
 
         if (TextUtils.isEmpty(storeName)){
             Toast.makeText(this, "Could not save information, Name is empty", Toast.LENGTH_SHORT).show();
@@ -96,7 +99,12 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
             return;
         }
 
-        StoreInformation storeInformation = new StoreInformation(storeName, phoneNumber, open, close);
+        if (TextUtils.isEmpty(capacity)){
+            Toast.makeText(this, "Could not save information, Capacity is empty", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        StoreInformation storeInformation = new StoreInformation(storeName, phoneNumber, open, close, capacity);
 
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
