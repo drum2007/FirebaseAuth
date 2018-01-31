@@ -26,4 +26,6 @@
     <string name="friday">Fr</string>
     <string name="saturday">Sa</string>
     <string name="business_hours">Business Hours:</string>
+    <string name="open_drawer">Open Menu</string>
+    <string name="close_drawer">Close Menu</string>
 </resources>
