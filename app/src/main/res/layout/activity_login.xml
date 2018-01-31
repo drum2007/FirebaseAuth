@@ -8,53 +8,47 @@
     tools:context="com.beam.firebaseauth.LoginActivity">
 
     <TextView
-        android:textSize="30sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:text="@string/login"
+        android:textSize="30sp"
         tools:ignore="SpUsage" />
 
     <EditText
-        android:inputType="textEmailAddress"
-        android:hint="@string/enter_your_email"
         android:id="@+id/editTextEmail"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:hint="@string/enter_your_email"
+        android:inputType="textEmailAddress" />
 
     <EditText
-        android:inputType="textPassword"
-        android:hint="@string/enter_your_password"
         android:id="@+id/editTextPassword"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:hint="@string/enter_your_password"
+        android:inputType="textPassword" />
 
     <Button
-        android:text="@string/sign_in"
         android:id="@+id/btnSignIn"
-        android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/sign_in" />
 
     <Button
-        android:text="@string/register_for_user"
         android:id="@+id/btnUserSignUp"
-        android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/register_for_user" />
 
     <Button
-        android:text="@string/register_for_store"
         android:id="@+id/btnStoreSignUp"
-        android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/register_for_store" />
 
-    <Button
-        android:text="select_store"
-        android:id="@+id/btnStoreSelect"
-        android:layout_gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
 
 </android.widget.LinearLayout>
