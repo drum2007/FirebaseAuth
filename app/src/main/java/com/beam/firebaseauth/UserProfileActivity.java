@@ -21,10 +21,10 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
     private Button btnSaveInfo;
     private Button btnLogout;
 
-    private DatabaseReference databaseReference;
     private EditText editTextName;
     private EditText editTextPhoneNumber;
 
+    private DatabaseReference databaseReference;
     private FirebaseAuth firebaseAuth;
 
     @Override
@@ -34,20 +34,20 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
 
         firebaseAuth = FirebaseAuth.getInstance();
 
-        if (firebaseAuth.getCurrentUser() == null){
+        if (firebaseAuth.getCurrentUser() == null) {
             finish();
             startActivity(new Intent(this, LoginActivity.class));
         }
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
-        editTextPhoneNumber = findViewById(R.id.editTextPhoneNumber);
-        editTextName = findViewById(R.id.editTextName);
-        btnSaveInfo = findViewById(R.id.btnSaveInfo);
-
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
         tvUserEmail = findViewById(R.id.tvUserEmail);
+        editTextPhoneNumber = findViewById(R.id.editTextPhoneNumber);
+        editTextName = findViewById(R.id.editTextName);
+
+        btnSaveInfo = findViewById(R.id.btnSaveInfo);
         btnLogout = findViewById(R.id.btnLogout);
 
         tvUserEmail.setText("Welcome " + user.getEmail());
@@ -56,38 +56,38 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
         btnLogout.setOnClickListener(this);
     }
 
-    private void saveUserInformation(){
+    private void saveUserInformation() {
         String name = editTextName.getText().toString().trim();
-        String PhoneNumber = editTextPhoneNumber.getText().toString().trim();
+        String phoneNumber = editTextPhoneNumber.getText().toString().trim();
 
-        if (TextUtils.isEmpty(name)){
+        if (TextUtils.isEmpty(name)) {
             Toast.makeText(this, "Could not save information, Name is empty", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (TextUtils.isEmpty(PhoneNumber)){
-            Toast.makeText(this, "Could not save information, Address is empty", Toast.LENGTH_SHORT).show();
+        if (TextUtils.isEmpty(phoneNumber)) {
+            Toast.makeText(this, "Could not save information, Phone number is empty", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        UserInformation userInformation = new UserInformation(name, PhoneNumber);
+        UserInformation userInformation = new UserInformation(name, phoneNumber);
 
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
-        databaseReference.child(user.getUid()).setValue(userInformation);
+        databaseReference.child("User").child(user.getUid()).setValue(userInformation);
 
-        Toast.makeText(this, "Information Saved ...",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Information Saved", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onClick(View v) {
-        if (v == btnLogout){
+        if (v == btnLogout) {
             firebaseAuth.signOut();
             finish();
             startActivity(new Intent(this, LoginActivity.class));
         }
 
-        if (v == btnSaveInfo){
+        if (v == btnSaveInfo) {
             saveUserInformation();
         }
     }

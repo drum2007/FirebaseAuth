@@ -1,3 +1,29 @@
 <resources>
     <string name="app_name">FirebaseAuth</string>
+    <string name="login">Login</string>
+    <string name="enter_your_email">Enter your email</string>
+    <string name="enter_your_password">Enter your password</string>
+    <string name="sign_in">Sign In</string>
+    <string name="register_for_user">Register for User</string>
+    <string name="email">Email</string>
+    <string name="store_name">Store Name</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="save_information">Save Information</string>
+    <string name="logout">Logout</string>
+    <string name="store_registration">Store Registration</string>
+    <string name="already_have_account_sign_in_here">Already have account? Sign In here</string>
+    <string name="register_for_store">Register for Store</string>
+    <string name="full_name">Full Name</string>
+    <string name="user_registration">User Registration</string>
+    <string name="capacity">Capacity of Store</string>
+    <string name="sunday">Su</string>
+    <string name="monday">Mo</string>
+    <string name="tuesday">Tu</string>
+    <string name="wednesday">We</string>
+    <string name="thursday">Th</string>
+    <string name="friday">Fr</string>
+    <string name="saturday">Sa</string>
+    <string name="business_hours">Business Hours:</string>
 </resources>
