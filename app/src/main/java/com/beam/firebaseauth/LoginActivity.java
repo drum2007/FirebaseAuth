@@ -13,6 +13,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -103,7 +104,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(actionBarDrawerToggle.onOptionsItemSelected(item))
+        if (actionBarDrawerToggle.onOptionsItemSelected(item))
             return true;
         return super.onOptionsItemSelected(item);
     }
@@ -111,7 +112,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
         if (v == btnSignIn) {
-            finish();
             userLogin();
         }
         if (v == btnUserSignUp) {
@@ -120,7 +120,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (v == btnStoreSignUp) {
             startActivity(new Intent(this, StoreRegistActivity.class));
         }
-        if (v == menuSelectStore){
+        if (v == menuSelectStore) {
             startActivity(new Intent(this, SelectStoreActivity.class));
         }
     }
@@ -131,10 +131,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         if (TextUtils.isEmpty(email)) {
             Toast.makeText(this, "Please enter email", Toast.LENGTH_SHORT).show();
+            return;
         }
 
         if (TextUtils.isEmpty(password)) {
             Toast.makeText(this, "Please enter password", Toast.LENGTH_SHORT).show();
+            return;
         }
 
         progressDialog.setMessage("Signing in, Please wait ...");
@@ -157,7 +159,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
-
+                            databaseError.getMessage();
                         }
                     });
                     Query storeQuery = databaseReference.child("Store").orderByKey().equalTo(firebaseAuth.getCurrentUser().getUid());
@@ -171,7 +173,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
-
+                            databaseError.getMessage();
                         }
                     });
                 } else {
