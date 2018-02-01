@@ -37,6 +37,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Button btnSignIn;
     private Button btnUserSignUp;
     private Button btnStoreSignUp;
+    private Button menuSelectStore;
 
     private ProgressDialog progressDialog;
 
@@ -64,10 +65,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         btnSignIn = findViewById(R.id.btnSignIn);
         btnUserSignUp = findViewById(R.id.btnUserSignUp);
         btnStoreSignUp = findViewById(R.id.btnStoreSignUp);
+        menuSelectStore = findViewById(R.id.menuSelectStore);
 
         btnSignIn.setOnClickListener(this);
         btnUserSignUp.setOnClickListener(this);
         btnStoreSignUp.setOnClickListener(this);
+        menuSelectStore.setOnClickListener(this);
     }
 
     private void initInstance() {
@@ -114,6 +117,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
         if (v == btnStoreSignUp) {
             startActivity(new Intent(this, StoreRegistActivity.class));
+        }
+        if (v == menuSelectStore){
+            startActivity(new Intent(this, SelectStoreActivity.class));
         }
     }
 
