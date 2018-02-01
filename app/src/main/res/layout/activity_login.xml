@@ -6,58 +6,97 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.beam.firebaseauth.LoginActivity">
+    tools:context="com.beam.firebaseauth.LoginActivity"
+
+    android:paddingHorizontal="20dp"
+    android:paddingVertical="10dp"
+    android:layout_gravity="center"
+    >
     <!--content-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-    <TextView
-        android:textSize="30sp"
+        <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:text="@string/login"
-        tools:ignore="SpUsage" />
+        android:orientation="vertical"
+        android:paddingTop="30dp"
+        android:padding="20dp"
+        android:background="@color/green"
 
-    <EditText
-        android:inputType="textEmailAddress"
-        android:hint="@string/enter_your_email"
-        android:id="@+id/editTextEmail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        >
+     
+            <ImageView
+        android:layout_gravity="center"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+            />
+        
+    <!--<TextView-->
+        <!--android:textSize="30sp"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:gravity="center_horizontal"-->
+        <!--android:text="@string/login"-->
+        <!--tools:ignore="SpUsage" />-->
+
+        <EditText
+            android:inputType="textEmailAddress"
+            android:hint="@string/enter_your_email"
+            android:id="@+id/editTextEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_margin="10dp"
         />
 
-    <EditText
+        <EditText
         android:inputType="textPassword"
         android:hint="@string/enter_your_password"
         android:id="@+id/editTextPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@color/white"
         />
 
-    <Button
-        android:text="@string/sign_in"
-        android:id="@+id/btnSignIn"
-        android:layout_gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <Button
-        android:text="@string/register_for_user"
-        android:id="@+id/btnUserSignUp"
-        android:layout_gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <Button
-        android:text="@string/register_for_store"
-        android:id="@+id/btnStoreSignUp"
-        android:layout_gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        <Button
+            android:text="@string/sign_in"
+            android:textColor="@color/white"
+            android:id="@+id/btnSignIn"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/green"
+            android:layout_marginTop="40dp"
         />
-    </LinearLayout>
+        </LinearLayout>
+        <Button
+            android:text="@string/register_for_user"
+            android:id="@+id/btnUserSignUp"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/green"
+            android:layout_weight="1"
+            android:layout_margin="20dp"
+            android:textColor="@color/white"/>
+
+        <Button
+            android:text="@string/register_for_store"
+            android:id="@+id/btnStoreSignUp"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/green"
+            android:layout_weight="1"
+            android:layout_margin="20dp"
+            android:textColor="@color/white"
+            />
+        </LinearLayout>
+
 
 
     <!-- menu -->
@@ -73,13 +112,16 @@
             android:text="Profile"
             android:contentDescription="Profile"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:background="@color/green"
+            />
         <Button
             android:id="@+id/menuSelectStore"
             android:text="Select Store"
             android:contentDescription="Select Store"
               android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:background="@color/green"/>
 
     </LinearLayout>
 
