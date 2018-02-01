@@ -37,7 +37,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Button btnSignIn;
     private Button btnUserSignUp;
     private Button btnStoreSignUp;
-    private Button btnStoreSelect;
 
     private ProgressDialog progressDialog;
 
@@ -66,12 +65,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         btnUserSignUp = findViewById(R.id.btnUserSignUp);
         btnStoreSignUp = findViewById(R.id.btnStoreSignUp);
 
-        btnStoreSelect = findViewById(R.id.btnStoreSelect);
-
         btnSignIn.setOnClickListener(this);
         btnUserSignUp.setOnClickListener(this);
         btnStoreSignUp.setOnClickListener(this);
-        btnStoreSelect.setOnClickListener(this);
     }
 
     private void initInstance() {
@@ -110,20 +106,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
         if (v == btnSignIn) {
-            //now only login to user profile must separate user and store
+            finish();
             userLogin();
         }
         if (v == btnUserSignUp) {
-            finish();
             startActivity(new Intent(this, UserRegistActivity.class));
         }
         if (v == btnStoreSignUp) {
-            finish();
             startActivity(new Intent(this, StoreRegistActivity.class));
-        }
-        if (v == btnStoreSelect) {
-            finish();
-            startActivity(new Intent(this, SelectStoreActivity.class));
         }
     }
 
@@ -153,8 +143,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             if (dataSnapshot.getValue() != null) {
-                                finish();
-                                startActivity(new Intent(getApplicationContext(), UserProfileActivity.class));
+                                startActivity(new Intent(getApplicationContext(), SelectStoreActivity.class));
                             }
                         }
 
@@ -168,7 +157,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             if (dataSnapshot.getValue() != null) {
-                                finish();
                                 startActivity(new Intent(getApplicationContext(), StoreProfileActivity.class));
                             }
                         }

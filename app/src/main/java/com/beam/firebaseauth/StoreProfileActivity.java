@@ -108,7 +108,7 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
 
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
-        databaseReference.child("Store").child(user.getUid()).setValue(storeInformation);
+        databaseReference.child("Store").child(user.getUid()).child("StoreInfo").setValue(storeInformation);
 
         Toast.makeText(this, "Information Saved", Toast.LENGTH_SHORT).show();
     }
