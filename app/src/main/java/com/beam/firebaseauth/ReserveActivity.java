@@ -1,9 +1,15 @@
 package com.beam.firebaseauth;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
+import android.content.res.Configuration;
+import android.support.annotation.Nullable;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewDebug;
 import android.widget.Button;
@@ -26,6 +32,7 @@ public class ReserveActivity extends AppCompatActivity implements DatePickerDial
     private Button btnDate;
     private TextView tvDate;
     private Button btnConfirm;
+    private Button menuSelectStore;
 
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
@@ -34,10 +41,17 @@ public class ReserveActivity extends AppCompatActivity implements DatePickerDial
     public String Month;
     public String DayOfMonth;
 
+    DrawerLayout drawerLayout;
+    ActionBarDrawerToggle actionBarDrawerToggle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reserve);
+
+        setTitle("Reserve");
+
+        initInstance();
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
@@ -47,11 +61,46 @@ public class ReserveActivity extends AppCompatActivity implements DatePickerDial
         btnDate = findViewById(R.id.btnDate);
         tvDate = findViewById(R.id.tvDate);
         btnConfirm = findViewById(R.id.btnConfirm);
+        menuSelectStore = findViewById(R.id.menuSelectStore);
 
         btnDate.setOnClickListener(this);
         btnConfirm.setOnClickListener(this);
+        menuSelectStore.setOnClickListener(this);
+    }
+    //menubar
+    private void initInstance() {
+        drawerLayout = findViewById(R.id.drawerLayout);
+        actionBarDrawerToggle = new ActionBarDrawerToggle(
+                ReserveActivity.this,
+                drawerLayout,
+                R.string.open_drawer,
+                R.string.close_drawer
+        );
+        drawerLayout.setDrawerListener(actionBarDrawerToggle);
+
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
+    @Override
+    public void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        actionBarDrawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        actionBarDrawerToggle.onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (actionBarDrawerToggle.onOptionsItemSelected(item))
+            return true;
+        return super.onOptionsItemSelected(item);
+    }
+    //menubar
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         Calendar c = Calendar.getInstance();
@@ -75,6 +124,9 @@ public class ReserveActivity extends AppCompatActivity implements DatePickerDial
         }
         if (v == btnConfirm) {
             saveConfirmation();
+        }
+        if (v == menuSelectStore) {
+            startActivity(new Intent(this, SelectStoreActivity.class));
         }
     }
 

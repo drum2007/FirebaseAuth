@@ -1,9 +1,14 @@
 package com.beam.firebaseauth;
 
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.support.annotation.Nullable;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,14 +30,21 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
     private Button btnSaveInfo;
     private TextView tvStoreEmail;
     private Button btnLogout;
+    private Button menuSelectStore;
 
     private DatabaseReference databaseReference;
     private FirebaseAuth firebaseAuth;
+
+    DrawerLayout drawerLayout;
+    ActionBarDrawerToggle actionBarDrawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store_profile);
+        setTitle("Store Profile");
+
+        initInstance();
 
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -51,6 +63,7 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
         openTime = findViewById(R.id.openTime);
         closeTime = findViewById(R.id.closeTime);
         storeCapacity = findViewById(R.id.storeCapacity);
+        menuSelectStore = findViewById(R.id.menuSelectStore);
 
         btnSaveInfo = findViewById(R.id.btnSaveInfo);
         btnLogout = findViewById(R.id.btnLogout);
@@ -58,7 +71,43 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
 
         btnSaveInfo.setOnClickListener(this);
         btnLogout.setOnClickListener(this);
+        menuSelectStore.setOnClickListener(this);
     }
+
+    //menubar
+    private void initInstance() {
+        drawerLayout = findViewById(R.id.drawerLayout);
+        actionBarDrawerToggle = new ActionBarDrawerToggle(
+                StoreProfileActivity.this,
+                drawerLayout,
+                R.string.open_drawer,
+                R.string.close_drawer
+        );
+        drawerLayout.setDrawerListener(actionBarDrawerToggle);
+
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    public void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        actionBarDrawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        actionBarDrawerToggle.onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (actionBarDrawerToggle.onOptionsItemSelected(item))
+            return true;
+        return super.onOptionsItemSelected(item);
+    }
+    //menubar
 
     @Override
     public void onClick(View v) {
@@ -69,6 +118,9 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
         }
         if (v == btnSaveInfo) {
             saveStoreInformation();
+        }
+        if (v == menuSelectStore) {
+            startActivity(new Intent(this, SelectStoreActivity.class));
         }
     }
 

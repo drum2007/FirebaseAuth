@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.widget.LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingBottom="16dp"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
-    android:paddingTop="16dp"
-    android:weightSum="3"
     tools:context="com.beam.firebaseauth.ReserveActivity">
-
+    <!--content-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="16dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="16dp"
+        android:weightSum="3">
     <TextView
         android:id="@+id/tvStoreName"
         android:layout_width="match_parent"
@@ -51,5 +55,32 @@
         android:id="@+id/btnConfirm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+    </LinearLayout>
+    <!-- menu -->
+    <LinearLayout
+        android:layout_gravity="start"
+        android:background="#ffffff"
+        android:layout_width="320dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-</android.widget.LinearLayout>
+        <Button
+            android:id="@+id/menuProfile"
+            android:text="Profile"
+            android:contentDescription="Profile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/green"
+            />
+        <Button
+            android:id="@+id/menuSelectStore"
+            android:text="Select Store"
+            android:contentDescription="Select Store"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/green"/>
+
+    </LinearLayout>
+
+
+</android.support.v4.widget.DrawerLayout>
