@@ -33,6 +33,7 @@ public class ReserveActivity extends AppCompatActivity implements DatePickerDial
     private TextView tvDate;
     private Button btnConfirm;
     private Button menuSelectStore;
+    private TextView tvStoreName;
 
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
@@ -62,6 +63,7 @@ public class ReserveActivity extends AppCompatActivity implements DatePickerDial
         tvDate = findViewById(R.id.tvDate);
         btnConfirm = findViewById(R.id.btnConfirm);
         menuSelectStore = findViewById(R.id.menuSelectStore);
+        tvStoreName = findViewById(R.id.tvStoreName);
 
         btnDate.setOnClickListener(this);
         btnConfirm.setOnClickListener(this);

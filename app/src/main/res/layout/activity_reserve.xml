@@ -20,7 +20,8 @@
         android:id="@+id/tvStoreName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#0fffff" />
+        android:background="#0fffff"
+        android:layout_margin="5dp"/>
 
     <EditText
         android:id="@+id/editTextNumber"
@@ -32,29 +33,37 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_margin="10dp">
 
         <Button
             android:id="@+id/btnDate"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="1"
-            android:text="Date picker" />
+            android:layout_weight="2"
+            android:background="@color/green"
+            android:text="Date picker"
+            android:textColor="@color/white"/>
 
         <TextView
             android:id="@+id/tvDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_weight="2" />
 
     </LinearLayout>
 
     <Button
         android:text="Confirm"
+        android:textColor="@color/white"
         android:id="@+id/btnConfirm"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="50dp"
+        android:background="@color/green"/>
     </LinearLayout>
     <!-- menu -->
     <LinearLayout

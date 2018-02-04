@@ -70,7 +70,8 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
 
         <CheckBox
             android:text="@string/sunday"
@@ -118,18 +119,25 @@
 
     <Button
         android:text="@string/save_information"
+        android:textColor="@color/white"
         android:id="@+id/btnSaveInfo"
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:background="@color/green"
+        android:layout_margin="5dp"/>
 
     <Button
         android:text="@string/logout"
+        android:textColor="@color/white"
         android:id="@+id/btnLogout"
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:background="@color/green"
+        android:layout_margin="30dp"/>
     </LinearLayout>
+
     <!--menu-->
     <LinearLayout
         android:layout_gravity="start"
