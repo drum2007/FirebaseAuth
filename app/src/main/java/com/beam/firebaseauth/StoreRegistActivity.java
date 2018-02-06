@@ -142,7 +142,7 @@ public class StoreRegistActivity extends AppCompatActivity implements View.OnCli
                 } else {
                     progressDialog.dismiss();
                     Log.e(TAG, "onComplete: Failed =" + task.getException().getMessage());
-                    Toast.makeText(StoreRegistActivity.this, "Fail", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(StoreRegistActivity.this, "Fail to register", Toast.LENGTH_SHORT).show();
                 }
             }
         });

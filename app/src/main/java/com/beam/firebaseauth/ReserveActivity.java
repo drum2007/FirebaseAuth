@@ -136,25 +136,34 @@ public class ReserveActivity extends AppCompatActivity implements DatePickerDial
     private void saveConfirmation() {
         String numberOfPeople = editTextNumber.getText().toString().trim();
         String year = Year;
-        String month = calculateRealMonth(Month);
         String dayOfMonth = DayOfMonth;
 
         if (TextUtils.isEmpty(numberOfPeople)) {
             Toast.makeText(this, "Please enter number of people", Toast.LENGTH_SHORT).show();
+            return;
         }
 
-        if (TextUtils.isEmpty(year) || TextUtils.isEmpty(month) || TextUtils.isEmpty(dayOfMonth)) {
+        if (TextUtils.isEmpty(year) || TextUtils.isEmpty(dayOfMonth)) {
             Toast.makeText(this, "Please enter Date", Toast.LENGTH_SHORT).show();
-        } else {
-            FirebaseUser user = firebaseAuth.getCurrentUser();
-
-            Confirmation confirmation = new Confirmation(numberOfPeople, user.getUid());
-
-            databaseReference.child("Store").child("2XHfcqzJKOaXQ2yd5OuomM60ek33").child("ReserveInfo")
-                    .child("Year: " + year).child("Month: " + month).child("Date: " + dayOfMonth).setValue(confirmation);
-
-            Toast.makeText(this, "Reservation Saved", Toast.LENGTH_SHORT).show();
+            return;
         }
+
+        String month = calculateRealMonth(Month);
+
+        if (TextUtils.isEmpty(month)) {
+            Toast.makeText(this, "Please enter Date", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+
+        Confirmation confirmation = new Confirmation(numberOfPeople, user.getUid());
+
+        //must save under store uid
+        databaseReference.child("Store").child("2XHfcqzJKOaXQ2yd5OuomM60ek33").child("ReserveInfo")
+                .child("Year: " + year).child("Month: " + month).child("Date: " + dayOfMonth).setValue(confirmation);
+
+        Toast.makeText(this, "Reservation Saved", Toast.LENGTH_SHORT).show();
 
     }
 
