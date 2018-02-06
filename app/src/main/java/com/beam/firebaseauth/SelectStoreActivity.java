@@ -105,7 +105,9 @@ public class SelectStoreActivity extends AppCompatActivity implements View.OnCli
             });
         }
         if (v == bt2) {
-            startActivity(new Intent(this, ReserveActivity.class));
+            Intent intent = new Intent(this, ReserveActivity.class);
+            intent.putExtra("id","2XHfcqzJKOaXQ2yd5OuomM60ek33");
+            startActivity(intent);
         }
         if (v == menuSelectStore) {
             startActivity(new Intent(this, SelectStoreActivity.class));
