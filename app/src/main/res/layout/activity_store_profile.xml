@@ -23,6 +23,13 @@
                 android:layout_gravity="center_horizontal"
                 android:text="@string/email" />
 
+            <ImageView
+                android:src="@mipmap/defualtphotos"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/imageView"
+                android:layout_width="160dp"
+                android:layout_height="160dp" />
+
             <EditText
                 android:id="@+id/editTextName"
                 android:layout_width="match_parent"
@@ -131,10 +138,6 @@
                 android:layout_height="wrap_content"
                 android:text="choose image" />
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="160dp"
-                android:layout_height="160dp" />
 
             <Button
                 android:id="@+id/btnSaveInfo"
