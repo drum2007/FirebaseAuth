@@ -15,6 +15,7 @@ import android.view.ViewDebug;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +24,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -252,15 +254,51 @@ public class ReserveActivity extends AppCompatActivity implements DatePickerDial
 
         return realMonth;
     }
-
+    //Map //
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
         LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-        mMap.setMinZoomPreference(11);
+        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney").snippet("Hello Sydney"));
+
+        LatLng myHome = new LatLng(-34.1, 150);
+        mMap.addMarker(new MarkerOptions().position(myHome).title("My Home").snippet("Hello my home"));
+
+        LatLng center = new LatLng(-34.05, 150.5);
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(center, 8));
+
+        mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+
+
+            @Override
+            // Return null here, so that getInfoContents() is called next.
+            public View getInfoWindow(Marker arg0) {
+                return null;
+            }
+
+            @Override
+            public View getInfoContents(Marker marker) {
+                // Inflate the layouts for the info window, title and snippet.
+                View infoWindow = getLayoutInflater().inflate(R.layout.custom_info_contents, null);
+
+
+                TextView title = ((TextView) infoWindow.findViewById(R.id.textViewName));
+                title.setText(marker.getTitle());
+
+
+                TextView snippet = ((TextView) infoWindow.findViewById(R.id.textViewSnippet));
+                snippet.setText(marker.getSnippet());
+
+                ImageView imageView = (ImageView) infoWindow.findViewById(R.id.imageView);
+                imageView.setImageResource(R.drawable.ic_city);
+                if ("My Home".equals(marker.getTitle())) {
+                    imageView.setImageResource(R.drawable.ic_home);
+                }
+
+                return infoWindow;
+            }
+        });
     }
 }
