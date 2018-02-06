@@ -89,12 +89,14 @@ public class ReserveActivity extends AppCompatActivity implements DatePickerDial
 
         // Intent Data
         String storeID = getIntent().getStringExtra("id");
-        DatabaseReference storeRef = databaseReference.child("Store").child(storeID).child("StoreInfo").child("storeName");
-        storeRef.addValueEventListener(new ValueEventListener() {
+        Query storeQuery = databaseReference.child("Store").child(storeID).child("StoreInfo");
+        storeQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String storename = dataSnapshot.getValue(String.class);
-                tvStoreName.setText(storename);
+                if (dataSnapshot.exists()){
+                    String storeName = dataSnapshot.child("storeName").getValue(String.class);
+                    tvStoreName.setText(storeName);
+                }
             }
 
             @Override
