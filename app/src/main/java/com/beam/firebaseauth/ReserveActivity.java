@@ -78,7 +78,7 @@ public class ReserveActivity extends AppCompatActivity implements DatePickerDial
                 R.string.open_drawer,
                 R.string.close_drawer
         );
-        drawerLayout.setDrawerListener(actionBarDrawerToggle);
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
 
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

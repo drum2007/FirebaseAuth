@@ -1,7 +1,12 @@
 package com.beam.firebaseauth;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -12,16 +17,27 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class StoreProfileActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private static final int PICK_IMAGE = 123;
     private EditText editTextName;
     private EditText editTextPhoneNumber;
     private EditText openTime;
@@ -31,12 +47,16 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
     private TextView tvStoreEmail;
     private Button btnLogout;
     private Button menuSelectStore;
+    private Button btnChooseImage;
+    private ImageView imageView;
 
     private DatabaseReference databaseReference;
     private FirebaseAuth firebaseAuth;
+    private StorageReference storageReference;
 
-    DrawerLayout drawerLayout;
-    ActionBarDrawerToggle actionBarDrawerToggle;
+    private Uri filepath;
+    private DrawerLayout drawerLayout;
+    private ActionBarDrawerToggle actionBarDrawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +67,8 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
         initInstance();
 
         firebaseAuth = FirebaseAuth.getInstance();
+
+        storageReference = FirebaseStorage.getInstance().getReference();
 
         if (firebaseAuth.getCurrentUser() == null) {
             finish();
@@ -64,7 +86,9 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
         closeTime = findViewById(R.id.closeTime);
         storeCapacity = findViewById(R.id.storeCapacity);
         menuSelectStore = findViewById(R.id.menuSelectStore);
+        imageView = findViewById(R.id.imageView);
 
+        btnChooseImage = findViewById(R.id.btnChooseImage);
         btnSaveInfo = findViewById(R.id.btnSaveInfo);
         btnLogout = findViewById(R.id.btnLogout);
         tvStoreEmail.setText("Welcome " + user.getEmail());
@@ -72,6 +96,7 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
         btnSaveInfo.setOnClickListener(this);
         btnLogout.setOnClickListener(this);
         menuSelectStore.setOnClickListener(this);
+        btnChooseImage.setOnClickListener(this);
     }
 
     //menubar
@@ -83,7 +108,7 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
                 R.string.open_drawer,
                 R.string.close_drawer
         );
-        drawerLayout.setDrawerListener(actionBarDrawerToggle);
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
 
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -122,6 +147,74 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
         if (v == menuSelectStore) {
             startActivity(new Intent(this, SelectStoreActivity.class));
         }
+        if (v == btnChooseImage) {
+            showFileChooser();
+        }
+    }
+
+    private void showFileChooser() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select an Image"), PICK_IMAGE);
+    }
+
+    //upload selected image
+    private void uploadFile() {
+
+        if (filepath != null) {
+
+            final ProgressDialog progressDialog = new ProgressDialog(this);
+            progressDialog.setTitle("Uploading...");
+            progressDialog.show();
+
+            StorageReference riversRef = storageReference.child("images/profile.jpg");
+
+            riversRef.putFile(filepath)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            progressDialog.dismiss();
+                            Toast.makeText(getApplicationContext(), "File Uploaded", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            // Handle unsuccessful uploads
+                            progressDialog.dismiss();
+                            Toast.makeText(getApplicationContext(), "Error Uploaded", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                            //get percentage
+                            double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+                            progressDialog.setMessage((int) progress + "% Uploaded...");
+                        }
+                    });
+        } else {
+            //display error toast
+            Toast.makeText(getApplicationContext(), "Empty File Uploaded", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    //select image
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        //wtf is this shit!?
+        if (!(requestCode == PICK_IMAGE && requestCode == RESULT_OK && data != null && data.getData() != null)) {
+            filepath = data.getData();
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filepath);
+                imageView.setImageBitmap(bitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void saveStoreInformation() {
@@ -132,27 +225,27 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
         String capacity = storeCapacity.getText().toString().trim();
 
         if (TextUtils.isEmpty(storeName)) {
-            Toast.makeText(this, "Could not save information, Name is empty", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please enter store's name", Toast.LENGTH_SHORT).show();
             return;
         }
 
         if (TextUtils.isEmpty(phoneNumber)) {
-            Toast.makeText(this, "Could not save information, Address is empty", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please enter store's phone number", Toast.LENGTH_SHORT).show();
             return;
         }
 
         if (TextUtils.isEmpty(open)) {
-            Toast.makeText(this, "Could not save information, Open time is empty", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please enter open time", Toast.LENGTH_SHORT).show();
             return;
         }
 
         if (TextUtils.isEmpty(close)) {
-            Toast.makeText(this, "Could not save information, Close time is empty", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please enter close time", Toast.LENGTH_SHORT).show();
             return;
         }
 
         if (TextUtils.isEmpty(capacity)) {
-            Toast.makeText(this, "Could not save information, Capacity is empty", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please enter store's capacity", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -161,6 +254,8 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
         databaseReference.child("Store").child(user.getUid()).child("StoreInfo").setValue(storeInformation);
+
+        uploadFile();
 
         Toast.makeText(this, "Information Saved", Toast.LENGTH_SHORT).show();
     }
