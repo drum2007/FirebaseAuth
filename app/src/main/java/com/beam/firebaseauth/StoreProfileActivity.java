@@ -91,7 +91,7 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
         btnChooseImage = findViewById(R.id.btnChooseImage);
         btnSaveInfo = findViewById(R.id.btnSaveInfo);
         btnLogout = findViewById(R.id.btnLogout);
-        tvStoreEmail.setText("Welcome " + user.getEmail());
+        tvStoreEmail.setText(String.format("Welcome %s", user.getEmail()));
 
         btnSaveInfo.setOnClickListener(this);
         btnLogout.setOnClickListener(this);
@@ -99,7 +99,6 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
         btnChooseImage.setOnClickListener(this);
     }
 
-    //menubar
     private void initInstance() {
         drawerLayout = findViewById(R.id.drawerLayout);
         actionBarDrawerToggle = new ActionBarDrawerToggle(
@@ -132,7 +131,6 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
             return true;
         return super.onOptionsItemSelected(item);
     }
-    //menubar
 
     @Override
     public void onClick(View v) {
@@ -152,6 +150,7 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
         }
     }
 
+    //select image
     private void showFileChooser() {
         Intent intent = new Intent();
         intent.setType("image/*");
@@ -159,16 +158,34 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
         startActivityForResult(Intent.createChooser(intent, "Select an Image"), PICK_IMAGE);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PICK_IMAGE && data != null && data.getData() != null) {
+            filepath = data.getData();
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filepath);
+                imageView.setImageBitmap(bitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     //upload selected image
-    private void uploadFile() {
+    private boolean uploadFile() {
+
+        FirebaseUser user = firebaseAuth.getCurrentUser();
 
         if (filepath != null) {
 
             final ProgressDialog progressDialog = new ProgressDialog(this);
+
             progressDialog.setTitle("Uploading...");
             progressDialog.show();
 
-            StorageReference riversRef = storageReference.child("images/profile.jpg");
+            StorageReference riversRef = storageReference.child(user.getUid() + "/profile.jpg");
 
             riversRef.putFile(filepath)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -176,6 +193,7 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             progressDialog.dismiss();
                             Toast.makeText(getApplicationContext(), "File Uploaded", Toast.LENGTH_SHORT).show();
+
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -184,6 +202,7 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
                             // Handle unsuccessful uploads
                             progressDialog.dismiss();
                             Toast.makeText(getApplicationContext(), "Error Uploaded", Toast.LENGTH_SHORT).show();
+
                         }
                     })
                     .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
@@ -194,26 +213,11 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
                             progressDialog.setMessage((int) progress + "% Uploaded...");
                         }
                     });
+            return true;
         } else {
             //display error toast
-            Toast.makeText(getApplicationContext(), "Empty File Uploaded", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    //select image
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        //wtf is this shit!?
-        if (!(requestCode == PICK_IMAGE && requestCode == RESULT_OK && data != null && data.getData() != null)) {
-            filepath = data.getData();
-            try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filepath);
-                imageView.setImageBitmap(bitmap);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            Toast.makeText(getApplicationContext(), "Please choose Store's profile picture", Toast.LENGTH_SHORT).show();
+            return false;
         }
     }
 
@@ -255,8 +259,13 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
 
         databaseReference.child("Store").child(user.getUid()).child("StoreInfo").setValue(storeInformation);
 
-        uploadFile();
+        if (uploadFile()) {
+            Toast.makeText(this, "Information Saved", Toast.LENGTH_SHORT).show();
+        } else if (!uploadFile()) {
+            Toast.makeText(this, "Invalid Information", Toast.LENGTH_SHORT).show();
+        }
 
-        Toast.makeText(this, "Information Saved", Toast.LENGTH_SHORT).show();
     }
+
 }
+
