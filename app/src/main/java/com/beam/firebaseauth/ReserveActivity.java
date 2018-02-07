@@ -266,8 +266,8 @@ public class ReserveActivity extends AppCompatActivity implements DatePickerDial
         LatLng myDome = new LatLng(18.788302, 98.955049);
         mMap.addMarker(new MarkerOptions().position(myDome).title("My Dome").snippet("Hello my Dome"));
 
-        LatLng center = new LatLng( 18.79, 98.94);
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(center, 12));
+        LatLng center = new LatLng( 18.79, 98.954);
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(center, 13));
 
         mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
 
