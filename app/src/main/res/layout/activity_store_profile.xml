@@ -24,6 +24,7 @@
                 android:text="@string/email" />
 
             <ImageView
+                android:contentDescription="@string/store_s_profile_picture"
                 android:id="@+id/imageView"
                 android:layout_width="160dp"
                 android:layout_height="160dp"
@@ -167,7 +168,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_margin="5dp"
+                android:layout_margin="10dp"
                 android:background="@color/green"
                 android:text="@string/save_information"
                 android:textColor="@color/white" />
@@ -177,7 +178,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_margin="30dp"
+                android:layout_margin="10dp"
                 android:background="@color/green"
                 android:text="@string/logout"
                 android:textColor="@color/white" />

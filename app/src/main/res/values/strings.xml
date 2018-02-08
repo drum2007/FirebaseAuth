@@ -32,4 +32,5 @@
     <string name="choose_image">choose image</string>
     <string name="about_store">Add \'about your store\' here</string>
     <string name="tv_about_store">About Store:</string>
+    <string name="store_s_profile_picture">Store\'s profile picture</string>
 </resources>

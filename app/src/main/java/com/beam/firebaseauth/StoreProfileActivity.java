@@ -16,6 +16,7 @@ import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -80,19 +81,6 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
 
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
-        tvStoreEmail = findViewById(R.id.tvStoreEmail);
-        editTextName = findViewById(R.id.editTextName);
-        editTextPhoneNumber = findViewById(R.id.editTextPhoneNumber);
-        openTime = findViewById(R.id.openTime);
-        closeTime = findViewById(R.id.closeTime);
-        storeCapacity = findViewById(R.id.storeCapacity);
-        aboutStore = findViewById(R.id.editTextAboutStore);
-        menuSelectStore = findViewById(R.id.menuSelectStore);
-        imageView = findViewById(R.id.imageView);
-
-        btnChooseImage = findViewById(R.id.btnChooseImage);
-        btnSaveInfo = findViewById(R.id.btnSaveInfo);
-        btnLogout = findViewById(R.id.btnLogout);
         tvStoreEmail.setText(String.format("Welcome %s", user.getEmail()));
 
         btnSaveInfo.setOnClickListener(this);
@@ -113,6 +101,20 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
 
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        tvStoreEmail = findViewById(R.id.tvStoreEmail);
+        editTextName = findViewById(R.id.editTextName);
+        editTextPhoneNumber = findViewById(R.id.editTextPhoneNumber);
+        openTime = findViewById(R.id.openTime);
+        closeTime = findViewById(R.id.closeTime);
+        storeCapacity = findViewById(R.id.storeCapacity);
+        aboutStore = findViewById(R.id.editTextAboutStore);
+        menuSelectStore = findViewById(R.id.menuSelectStore);
+        imageView = findViewById(R.id.imageView);
+
+        btnChooseImage = findViewById(R.id.btnChooseImage);
+        btnSaveInfo = findViewById(R.id.btnSaveInfo);
+        btnLogout = findViewById(R.id.btnLogout);
     }
 
     @Override
@@ -149,6 +151,73 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
         }
         if (v == btnChooseImage) {
             showFileChooser();
+        }
+    }
+
+    public void onCheckboxClicked(View view) {
+        // Is the view now checked?
+        boolean checked = ((CheckBox) view).isChecked();
+
+        // Check which checkbox was clicked
+        switch (view.getId()) {
+            case R.id.sunday:
+                if (checked){
+
+                }
+                // Put some meat on the sandwich
+            else
+                // Remove the meat
+                break;
+            case R.id.monday:
+                if (checked) {
+
+                }
+                // Put some meat on the sandwich
+                else
+                    // Remove the meat
+                    break;
+            case R.id.tuesday:
+                if (checked) {
+
+                }
+                // Put some meat on the sandwich
+                else
+                    // Remove the meat
+                    break;
+            case R.id.wednesday:
+                if (checked) {
+
+                }
+                // Put some meat on the sandwich
+                else
+                    // Remove the meat
+                    break;
+            case R.id.thursday:
+                if (checked) {
+
+                }
+                // Put some meat on the sandwich
+                else
+                    // Remove the meat
+                    break;
+            case R.id.friday:
+                if (checked) {
+
+                }
+                // Put some meat on the sandwich
+                else
+                    // Remove the meat
+                    break;
+            case R.id.saturday:
+                if (checked) {
+
+                }
+                // Put some meat on the sandwich
+                else
+                    // Remove the meat
+                    break;
+
+            // TODO: Veggie sandwich
         }
     }
 
