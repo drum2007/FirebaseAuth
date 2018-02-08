@@ -159,8 +159,23 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        final FirebaseUser user = firebaseAuth.getCurrentUser();
+        final StorageReference storePicRef = FirebaseStorage.getInstance().getReference(user.getUid());
+
+        storePicRef.child(user.getUid() + "/profile").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
 
         if (requestCode == PICK_IMAGE && data != null && data.getData() != null) {
             filepath = data.getData();
@@ -185,9 +200,9 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
             progressDialog.setTitle("Uploading...");
             progressDialog.show();
 
-            StorageReference riversRef = storageReference.child(user.getUid() + "/profile.jpg");
+            StorageReference storePicRef = storageReference.child(user.getUid() + "/profile.jpg");
 
-            riversRef.putFile(filepath)
+            storePicRef.putFile(filepath)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -261,7 +276,8 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
 
         if (uploadFile()) {
             Toast.makeText(this, "Information Saved", Toast.LENGTH_SHORT).show();
-        } else if (!uploadFile()) {
+        }
+        if (!uploadFile()) {
             Toast.makeText(this, "Invalid Information", Toast.LENGTH_SHORT).show();
         }
 
