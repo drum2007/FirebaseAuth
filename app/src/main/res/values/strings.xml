@@ -31,4 +31,5 @@
     <string name="title_activity_maps">Map</string>
     <string name="choose_image">choose image</string>
     <string name="about_store">Add \'about your store\' here</string>
+    <string name="tv_about_store">About Store:</string>
 </resources>
