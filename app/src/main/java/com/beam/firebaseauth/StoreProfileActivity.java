@@ -43,6 +43,7 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
     private EditText openTime;
     private EditText closeTime;
     private EditText storeCapacity;
+    private EditText aboutStore;
     private Button btnSaveInfo;
     private TextView tvStoreEmail;
     private Button btnLogout;
@@ -85,6 +86,7 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
         openTime = findViewById(R.id.openTime);
         closeTime = findViewById(R.id.closeTime);
         storeCapacity = findViewById(R.id.storeCapacity);
+        aboutStore = findViewById(R.id.editTextAboutStore);
         menuSelectStore = findViewById(R.id.menuSelectStore);
         imageView = findViewById(R.id.imageView);
 
@@ -242,6 +244,7 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
         String open = openTime.getText().toString().trim();
         String close = closeTime.getText().toString().trim();
         String capacity = storeCapacity.getText().toString().trim();
+        String AboutStore = aboutStore.getText().toString().trim();
 
         if (TextUtils.isEmpty(storeName)) {
             Toast.makeText(this, "Please enter store's name", Toast.LENGTH_SHORT).show();
@@ -268,7 +271,7 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
             return;
         }
 
-        StoreInformation storeInformation = new StoreInformation(storeName, phoneNumber, open, close, capacity);
+        StoreInformation storeInformation = new StoreInformation(storeName, phoneNumber, open, close, capacity, AboutStore);
 
         FirebaseUser user = firebaseAuth.getCurrentUser();
 

@@ -24,11 +24,11 @@
                 android:text="@string/email" />
 
             <ImageView
-                android:src="@mipmap/defualtphotos"
-                android:layout_gravity="center_horizontal"
                 android:id="@+id/imageView"
                 android:layout_width="160dp"
-                android:layout_height="160dp" />
+                android:layout_height="160dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/defualtphotos" />
 
             <EditText
                 android:id="@+id/editTextName"
@@ -87,42 +87,49 @@
                 android:orientation="horizontal">
 
                 <CheckBox
+                    android:id="@+id/sunday"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/sunday" />
 
                 <CheckBox
+                    android:id="@+id/monday"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/monday" />
 
                 <CheckBox
+                    android:id="@+id/tuesday"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/tuesday" />
 
                 <CheckBox
+                    android:id="@+id/wednesday"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/wednesday" />
 
                 <CheckBox
+                    android:id="@+id/thursday"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/thursday" />
 
                 <CheckBox
+                    android:id="@+id/friday"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/friday" />
 
                 <CheckBox
+                    android:id="@+id/saturday"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -132,12 +139,21 @@
 
 
             <Button
-
                 android:id="@+id/btnChooseImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="choose image" />
+                android:text="@string/choose_image" />
 
+            <EditText
+                android:id="@+id/editTextAboutStore"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:hint="@string/about_store"
+                android:inputType="textCapSentences|textMultiLine"
+                android:maxLength="2000"
+                android:maxLines="4"
+                android:scrollHorizontally="false" />
 
             <Button
                 android:id="@+id/btnSaveInfo"
@@ -158,6 +174,7 @@
                 android:background="@color/green"
                 android:text="@string/logout"
                 android:textColor="@color/white" />
+
 
         </LinearLayout>
 

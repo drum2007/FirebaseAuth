@@ -87,7 +87,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 R.string.open_drawer,
                 R.string.close_drawer
         );
-        drawerLayout.setDrawerListener(actionBarDrawerToggle);
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
 
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
