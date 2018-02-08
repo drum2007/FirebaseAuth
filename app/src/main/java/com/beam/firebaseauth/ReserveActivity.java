@@ -260,14 +260,14 @@ public class ReserveActivity extends AppCompatActivity implements DatePickerDial
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney").snippet("Hello Sydney"));
+        LatLng CMU_Cloack_Tower = new LatLng(18.796488, 98.953402);
+        mMap.addMarker(new MarkerOptions().position(CMU_Cloack_Tower).title("Marker in CMU").snippet("Hello CMU"));
 
-        LatLng myHome = new LatLng(-34.1, 150);
-        mMap.addMarker(new MarkerOptions().position(myHome).title("My Home").snippet("Hello my home"));
+        LatLng myDome = new LatLng(18.788302, 98.955049);
+        mMap.addMarker(new MarkerOptions().position(myDome).title("My Dome").snippet("Hello my Dome"));
 
-        LatLng center = new LatLng(-34.05, 150.5);
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(center, 8));
+        LatLng center = new LatLng( 18.79, 98.954);
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(center, 13));
 
         mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
 
@@ -301,4 +301,5 @@ public class ReserveActivity extends AppCompatActivity implements DatePickerDial
             }
         });
     }
+    //Map//
 }
