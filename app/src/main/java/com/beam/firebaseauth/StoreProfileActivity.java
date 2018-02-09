@@ -51,6 +51,7 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
     private Button menuSelectStore;
     private Button btnChooseImage;
     private ImageView imageView;
+    private CheckBox monday, tuesday, wednesday, thursday;
 
     private DatabaseReference databaseReference;
     private FirebaseAuth firebaseAuth;
@@ -112,6 +113,8 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
         menuSelectStore = findViewById(R.id.menuSelectStore);
         imageView = findViewById(R.id.imageView);
 
+        monday = findViewById(R.id.monday);
+
         btnChooseImage = findViewById(R.id.btnChooseImage);
         btnSaveInfo = findViewById(R.id.btnSaveInfo);
         btnLogout = findViewById(R.id.btnLogout);
@@ -151,73 +154,6 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
         }
         if (v == btnChooseImage) {
             showFileChooser();
-        }
-    }
-
-    public void onCheckboxClicked(View view) {
-        // Is the view now checked?
-        boolean checked = ((CheckBox) view).isChecked();
-
-        // Check which checkbox was clicked
-        switch (view.getId()) {
-            case R.id.sunday:
-                if (checked){
-
-                }
-                // Put some meat on the sandwich
-            else
-                // Remove the meat
-                break;
-            case R.id.monday:
-                if (checked) {
-
-                }
-                // Put some meat on the sandwich
-                else
-                    // Remove the meat
-                    break;
-            case R.id.tuesday:
-                if (checked) {
-
-                }
-                // Put some meat on the sandwich
-                else
-                    // Remove the meat
-                    break;
-            case R.id.wednesday:
-                if (checked) {
-
-                }
-                // Put some meat on the sandwich
-                else
-                    // Remove the meat
-                    break;
-            case R.id.thursday:
-                if (checked) {
-
-                }
-                // Put some meat on the sandwich
-                else
-                    // Remove the meat
-                    break;
-            case R.id.friday:
-                if (checked) {
-
-                }
-                // Put some meat on the sandwich
-                else
-                    // Remove the meat
-                    break;
-            case R.id.saturday:
-                if (checked) {
-
-                }
-                // Put some meat on the sandwich
-                else
-                    // Remove the meat
-                    break;
-
-            // TODO: Veggie sandwich
         }
     }
 
@@ -355,5 +291,63 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
 
     }
 
+    public void onCheckboxClicked(View view) {
+        // Is the view now checked?
+        boolean checked = ((CheckBox) view).isChecked();
+
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+
+        // Check which checkbox was clicked
+        switch (view.getId()) {
+            case R.id.sunday:
+                if (checked) {
+                    databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Sunday: ").setValue("true");
+                } else
+                    databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Sunday: ").setValue(null);
+                break;
+
+            case R.id.monday:
+                if (checked) {
+                    databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Monday: ").setValue("true");
+                } else
+                    databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Monday: ").setValue(null);
+                    break;
+
+            case R.id.tuesday:
+                if (checked) {
+                    databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Tuesday: ").setValue("true");
+                } else
+                    databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Tuesday: ").setValue(null);
+                    break;
+
+            case R.id.wednesday:
+                if (checked) {
+                    databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Wednesday: ").setValue("true");
+                } else
+                    databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Wednesday: ").setValue(null);
+                    break;
+
+            case R.id.thursday:
+                if (checked) {
+                    databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Thursday: ").setValue("true");
+                } else
+                    databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Thursday: ").setValue(null);
+                    break;
+
+            case R.id.friday:
+                if (checked) {
+                    databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Friday: ").setValue("true");
+                } else
+                    databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Friday: ").setValue(null);
+                    break;
+
+            case R.id.saturday:
+                if (checked) {
+                    databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Saturday: ").setValue("true");
+                } else
+                    databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Saturday: ").setValue(null);
+                    break;
+        }
+    }
 }
 

@@ -11,7 +11,6 @@ public class StoreInformation {
     public String openTime;
     public String closeTime;
     public String capacity;
-    public String sunday, monday, tuesday, wednesday, thursday, friday, saturday;
     public String aboutStore;
 
 
@@ -23,6 +22,5 @@ public class StoreInformation {
         this.capacity = capacity;
         this.aboutStore = aboutStore;
     }
-
 
 }
