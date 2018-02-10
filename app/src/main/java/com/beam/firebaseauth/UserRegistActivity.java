@@ -22,9 +22,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class UserRegistActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -136,7 +133,7 @@ public class UserRegistActivity extends AppCompatActivity implements View.OnClic
                 if (task.isSuccessful()) {
                     progressDialog.dismiss();
                     finish();
-                    startActivity(new Intent(getApplicationContext(), UserProfileActivity.class));
+                    startActivity(new Intent(getApplicationContext(), UserEditProfileActivity.class));
                     Toast.makeText(UserRegistActivity.this, "Register successful", Toast.LENGTH_SHORT).show();
                 } else {
                     progressDialog.dismiss();

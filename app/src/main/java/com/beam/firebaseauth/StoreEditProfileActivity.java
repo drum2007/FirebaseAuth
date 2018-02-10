@@ -33,16 +33,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
-public class StoreProfileActivity extends AppCompatActivity implements View.OnClickListener {
+public class StoreEditProfileActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final int PLACE_PICKER_REQUEST = 1;
     private static final int PICK_IMAGE = 123;
@@ -122,7 +120,7 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
     private void initInstance() {
         drawerLayout = findViewById(R.id.drawerLayout);
         actionBarDrawerToggle = new ActionBarDrawerToggle(
-                StoreProfileActivity.this,
+                StoreEditProfileActivity.this,
                 drawerLayout,
                 R.string.open_drawer,
                 R.string.close_drawer
@@ -367,82 +365,56 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
         // Is the view now checked?
         boolean checked = ((CheckBox) view).isChecked();
 
-        FirebaseUser user = firebaseAuth.getCurrentUser();
-
         // Check which checkbox was clicked
         switch (view.getId()) {
-
             case R.id.sunday:
                 if (checked) {
                     arrayDay[0] = 1;
-
                 } else
                     arrayDay[0] = 0;
-
                 break;
 
             case R.id.monday:
                 if (checked) {
                     arrayDay[1] = 1;
-
                 } else
                     arrayDay[1] = 0;
-
                 break;
 
             case R.id.tuesday:
                 if (checked) {
                     arrayDay[2] = 1;
-
                 } else
                     arrayDay[2] = 0;
-
                 break;
 
             case R.id.wednesday:
                 if (checked) {
                     arrayDay[3] = 1;
-
                 } else
                     arrayDay[3] = 0;
-
                 break;
 
             case R.id.thursday:
                 if (checked) {
                     arrayDay[4] = 1;
-
                 } else
                     arrayDay[4] = 0;
-
                 break;
 
             case R.id.friday:
                 if (checked) {
                     arrayDay[5] = 1;
-
                 } else
                     arrayDay[5] = 0;
-
                 break;
 
             case R.id.saturday:
                 if (checked) {
                     arrayDay[6] = 1;
-
                 } else
                     arrayDay[6] = 0;
-
                 break;
-
-//            default:
-//                databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Sunday: ").setValue(null);
-//                databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Monday: ").setValue(null);
-//                databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Tuesday: ").setValue(null);
-//                databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Wednesday: ").setValue(null);
-//                databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Thursday: ").setValue(null);
-//                databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Friday: ").setValue(null);
-//                databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Saturday: ").setValue(null);
         }
 
     }

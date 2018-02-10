@@ -20,7 +20,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class UserProfileActivity extends AppCompatActivity implements View.OnClickListener {
+public class UserEditProfileActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView tvUserEmail;
     private Button btnSaveInfo;
@@ -75,7 +75,7 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
     private void initInstance() {
         drawerLayout = findViewById(R.id.drawerLayout);
         actionBarDrawerToggle = new ActionBarDrawerToggle(
-                UserProfileActivity.this,
+                UserEditProfileActivity.this,
                 drawerLayout,
                 R.string.open_drawer,
                 R.string.close_drawer
