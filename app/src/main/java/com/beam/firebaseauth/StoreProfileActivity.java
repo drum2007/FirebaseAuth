@@ -338,6 +338,7 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
 
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
+        databaseReference.child("Store").child(user.getUid()).child("StoreInfo").setValue(storeInformation);
 
         databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Sunday: ").setValue(arrayDay[0] + "");
 
@@ -352,10 +353,6 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
         databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Friday: ").setValue(arrayDay[5] + "");
 
         databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Saturday: ").setValue(arrayDay[6] + "");
-
-
-        databaseReference.child("Store").child(user.getUid()).child("StoreInfo").setValue(storeInformation);
-
 
         if (uploadFile()) {
             Toast.makeText(this, "Information Saved", Toast.LENGTH_LONG).show();
