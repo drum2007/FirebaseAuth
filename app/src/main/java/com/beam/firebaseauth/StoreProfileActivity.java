@@ -275,10 +275,10 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
         databaseReference.child("Store").child(user.getUid()).child("StoreInfo").setValue(storeInformation);
 
         if (uploadFile()) {
-            Toast.makeText(this, "Information Saved", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Information Saved", Toast.LENGTH_LONG).show();
         }
         if (!uploadFile()) {
-            Toast.makeText(this, "Invalid Information", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Invalid Information", Toast.LENGTH_LONG).show();
         }
 
     }
