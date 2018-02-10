@@ -163,7 +163,6 @@ public class ReserveActivity extends AppCompatActivity implements DatePickerDial
             datePicker.show(getSupportFragmentManager(), "Date");
         }
         if (v == btnConfirm) {
-
             saveConfirmation();
         }
         if (v == menuSelectStore) {
@@ -260,8 +259,8 @@ public class ReserveActivity extends AppCompatActivity implements DatePickerDial
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng CMU_Cloack_Tower = new LatLng(18.796488, 98.953402);
-        mMap.addMarker(new MarkerOptions().position(CMU_Cloack_Tower).title("Marker in CMU").snippet("Hello CMU"));
+        LatLng CMU_Clock_Tower = new LatLng(18.796488, 98.953402);
+        mMap.addMarker(new MarkerOptions().position(CMU_Clock_Tower).title("Marker in CMU").snippet("Hello CMU"));
 
         LatLng myDome = new LatLng(18.788302, 98.955049);
         mMap.addMarker(new MarkerOptions().position(myDome).title("My Dome").snippet("Hello my Dome"));

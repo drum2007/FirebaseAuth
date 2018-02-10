@@ -28,6 +28,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -51,7 +52,7 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
     private Button menuSelectStore;
     private Button btnChooseImage;
     private ImageView imageView;
-    private CheckBox monday, tuesday, wednesday, thursday;
+    private int[] arrayDay = {0, 0, 0, 0, 0, 0, 0};
 
     private DatabaseReference databaseReference;
     private FirebaseAuth firebaseAuth;
@@ -112,8 +113,6 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
         aboutStore = findViewById(R.id.editTextAboutStore);
         menuSelectStore = findViewById(R.id.menuSelectStore);
         imageView = findViewById(R.id.imageView);
-
-        monday = findViewById(R.id.monday);
 
         btnChooseImage = findViewById(R.id.btnChooseImage);
         btnSaveInfo = findViewById(R.id.btnSaveInfo);
@@ -280,7 +279,24 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
 
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
+
+        databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Sunday: ").setValue(arrayDay[0] + "");
+
+        databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Monday: ").setValue(arrayDay[1] + "");
+
+        databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Tuesday: ").setValue(arrayDay[2] + "");
+
+        databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Wednesday: ").setValue(arrayDay[3] + "");
+
+        databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Thursday: ").setValue(arrayDay[4] + "");
+
+        databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Friday: ").setValue(arrayDay[5] + "");
+
+        databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Saturday: ").setValue(arrayDay[6] + "");
+
+
         databaseReference.child("Store").child(user.getUid()).child("StoreInfo").setValue(storeInformation);
+
 
         if (uploadFile()) {
             Toast.makeText(this, "Information Saved", Toast.LENGTH_LONG).show();
@@ -299,55 +315,82 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
 
         // Check which checkbox was clicked
         switch (view.getId()) {
+
             case R.id.sunday:
                 if (checked) {
-                    databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Sunday: ").setValue("true");
+                    arrayDay[0] = 1;
+
                 } else
-                    databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Sunday: ").setValue(null);
+                    arrayDay[0] = 0;
+
                 break;
 
             case R.id.monday:
                 if (checked) {
-                    databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Monday: ").setValue("true");
+                    arrayDay[1] = 1;
+
                 } else
-                    databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Monday: ").setValue(null);
-                    break;
+                    arrayDay[1] = 0;
+
+                break;
 
             case R.id.tuesday:
                 if (checked) {
-                    databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Tuesday: ").setValue("true");
+                    arrayDay[2] = 1;
+
                 } else
-                    databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Tuesday: ").setValue(null);
-                    break;
+                    arrayDay[2] = 0;
+
+                break;
 
             case R.id.wednesday:
                 if (checked) {
-                    databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Wednesday: ").setValue("true");
+                    arrayDay[3] = 1;
+
                 } else
-                    databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Wednesday: ").setValue(null);
-                    break;
+                    arrayDay[3] = 0;
+
+                break;
 
             case R.id.thursday:
                 if (checked) {
-                    databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Thursday: ").setValue("true");
+                    arrayDay[4] = 1;
+
                 } else
-                    databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Thursday: ").setValue(null);
-                    break;
+                    arrayDay[4] = 0;
+
+                break;
 
             case R.id.friday:
                 if (checked) {
-                    databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Friday: ").setValue("true");
+                    arrayDay[5] = 1;
+
                 } else
-                    databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Friday: ").setValue(null);
-                    break;
+                    arrayDay[5] = 0;
+
+                break;
 
             case R.id.saturday:
                 if (checked) {
-                    databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Saturday: ").setValue("true");
+                    arrayDay[6] = 1;
+
                 } else
-                    databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Saturday: ").setValue(null);
-                    break;
+                    arrayDay[6] = 0;
+
+                break;
+
+//            default:
+//                databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Sunday: ").setValue(null);
+//                databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Monday: ").setValue(null);
+//                databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Tuesday: ").setValue(null);
+//                databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Wednesday: ").setValue(null);
+//                databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Thursday: ").setValue(null);
+//                databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Friday: ").setValue(null);
+//                databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Saturday: ").setValue(null);
         }
+
     }
+
+
 }
 
