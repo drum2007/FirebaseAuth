@@ -16,6 +16,7 @@ import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -43,12 +44,14 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
     private EditText openTime;
     private EditText closeTime;
     private EditText storeCapacity;
+    private EditText aboutStore;
     private Button btnSaveInfo;
     private TextView tvStoreEmail;
     private Button btnLogout;
     private Button menuSelectStore;
     private Button btnChooseImage;
     private ImageView imageView;
+    private CheckBox monday, tuesday, wednesday, thursday;
 
     private DatabaseReference databaseReference;
     private FirebaseAuth firebaseAuth;
@@ -79,18 +82,6 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
 
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
-        tvStoreEmail = findViewById(R.id.tvStoreEmail);
-        editTextName = findViewById(R.id.editTextName);
-        editTextPhoneNumber = findViewById(R.id.editTextPhoneNumber);
-        openTime = findViewById(R.id.openTime);
-        closeTime = findViewById(R.id.closeTime);
-        storeCapacity = findViewById(R.id.storeCapacity);
-        menuSelectStore = findViewById(R.id.menuSelectStore);
-        imageView = findViewById(R.id.imageView);
-
-        btnChooseImage = findViewById(R.id.btnChooseImage);
-        btnSaveInfo = findViewById(R.id.btnSaveInfo);
-        btnLogout = findViewById(R.id.btnLogout);
         tvStoreEmail.setText(String.format("Welcome %s", user.getEmail()));
 
         btnSaveInfo.setOnClickListener(this);
@@ -111,6 +102,22 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
 
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        tvStoreEmail = findViewById(R.id.tvStoreEmail);
+        editTextName = findViewById(R.id.editTextName);
+        editTextPhoneNumber = findViewById(R.id.editTextPhoneNumber);
+        openTime = findViewById(R.id.openTime);
+        closeTime = findViewById(R.id.closeTime);
+        storeCapacity = findViewById(R.id.storeCapacity);
+        aboutStore = findViewById(R.id.editTextAboutStore);
+        menuSelectStore = findViewById(R.id.menuSelectStore);
+        imageView = findViewById(R.id.imageView);
+
+        monday = findViewById(R.id.monday);
+
+        btnChooseImage = findViewById(R.id.btnChooseImage);
+        btnSaveInfo = findViewById(R.id.btnSaveInfo);
+        btnLogout = findViewById(R.id.btnLogout);
     }
 
     @Override
@@ -242,6 +249,7 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
         String open = openTime.getText().toString().trim();
         String close = closeTime.getText().toString().trim();
         String capacity = storeCapacity.getText().toString().trim();
+        String AboutStore = aboutStore.getText().toString().trim();
 
         if (TextUtils.isEmpty(storeName)) {
             Toast.makeText(this, "Please enter store's name", Toast.LENGTH_SHORT).show();
@@ -268,7 +276,7 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
             return;
         }
 
-        StoreInformation storeInformation = new StoreInformation(storeName, phoneNumber, open, close, capacity);
+        StoreInformation storeInformation = new StoreInformation(storeName, phoneNumber, open, close, capacity, AboutStore);
 
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
@@ -283,5 +291,63 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
 
     }
 
+    public void onCheckboxClicked(View view) {
+        // Is the view now checked?
+        boolean checked = ((CheckBox) view).isChecked();
+
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+
+        // Check which checkbox was clicked
+        switch (view.getId()) {
+            case R.id.sunday:
+                if (checked) {
+                    databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Sunday: ").setValue("true");
+                } else
+                    databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Sunday: ").setValue(null);
+                break;
+
+            case R.id.monday:
+                if (checked) {
+                    databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Monday: ").setValue("true");
+                } else
+                    databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Monday: ").setValue(null);
+                    break;
+
+            case R.id.tuesday:
+                if (checked) {
+                    databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Tuesday: ").setValue("true");
+                } else
+                    databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Tuesday: ").setValue(null);
+                    break;
+
+            case R.id.wednesday:
+                if (checked) {
+                    databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Wednesday: ").setValue("true");
+                } else
+                    databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Wednesday: ").setValue(null);
+                    break;
+
+            case R.id.thursday:
+                if (checked) {
+                    databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Thursday: ").setValue("true");
+                } else
+                    databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Thursday: ").setValue(null);
+                    break;
+
+            case R.id.friday:
+                if (checked) {
+                    databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Friday: ").setValue("true");
+                } else
+                    databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Friday: ").setValue(null);
+                    break;
+
+            case R.id.saturday:
+                if (checked) {
+                    databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Saturday: ").setValue("true");
+                } else
+                    databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Saturday: ").setValue(null);
+                    break;
+        }
+    }
 }
 
