@@ -8,95 +8,102 @@
     tools:context="com.beam.firebaseauth.UserEditProfileActivity">
 
     <!--Content-->
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-    android:background="@color/green"
-    android:layout_margin="10dp"
-        android:layout_weight="2">
-    <TextView
-        android:text="@string/email"
-        android:id="@+id/tvUserEmail"
-        android:layout_gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
+        android:layout_height="match_parent">
 
-    <EditText
-        android:hint="@string/full_name"
-        android:id="@+id/editTextName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:layout_margin="20dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <EditText
-        android:hint="@string/phone_number"
-        android:id="@+id/editTextPhoneNumber"
-        android:inputType="phone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:layout_margin="20dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="2"
+                android:background="@color/green"
+                android:orientation="vertical">
 
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/tvUserEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/email" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_weight="3">
-    <Button
-        android:text="@string/save_information"
-        android:id="@+id/btnSaveInfo"
-        android:textColor="@color/white"
-        android:layout_gravity="center_horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/green"/>
+                <EditText
+                    android:id="@+id/editTextName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:background="@color/white"
+                    android:hint="@string/full_name" />
 
-    <Button
-        android:text="@string/logout"
-        android:textColor="@color/white"
-        android:id="@+id/btnLogout"
-        android:layout_gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:background="@color/green"/>
-    </LinearLayout>
+                <EditText
+                    android:id="@+id/editTextPhoneNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:background="@color/white"
+                    android:hint="@string/phone_number"
+                    android:inputType="phone" />
 
-    </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/btnSaveInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@color/green"
+                    android:text="@string/save_information"
+                    android:textColor="@color/white" />
+
+                <Button
+                    android:id="@+id/btnLogout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="20dp"
+                    android:background="@color/green"
+                    android:text="@string/logout"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
 
 
     <!--menu-->
     <LinearLayout
-        android:layout_gravity="start"
-        android:background="#ffffff"
         android:layout_width="320dp"
         android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="#ffffff"
         android:orientation="vertical">
 
         <Button
             android:id="@+id/menuProfile"
-            android:text="Profile"
-            android:contentDescription="Profile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/green"
-            />
+            android:contentDescription="Profile"
+            android:text="Profile" />
+
         <Button
             android:id="@+id/menuSelectStore"
-            android:text="Select Store"
-            android:contentDescription="Select Store"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/green"/>
+            android:background="@color/green"
+            android:contentDescription="Select Store"
+            android:text="Select Store" />
 
     </LinearLayout>
 </android.support.v4.widget.DrawerLayout>
