@@ -1,5 +1,6 @@
 package com.beam.firebaseauth;
 
+import android.app.Application;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.annotation.Nullable;
@@ -13,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,8 +33,10 @@ public class SelectStoreActivity extends AppCompatActivity implements View.OnCli
     private TextView tv2place;
 
     private Button menuSelectStore;
+    private Button menuProfile;
 
     private DatabaseReference databaseReference;
+    private FirebaseAuth firebaseAuth;
 
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle actionBarDrawerToggle;
@@ -51,6 +55,7 @@ public class SelectStoreActivity extends AppCompatActivity implements View.OnCli
         bt2 = findViewById(R.id.bt2);
 //        bt3 = findViewById(R.id.bt3);
         menuSelectStore = findViewById(R.id.menuSelectStore);
+        menuProfile = findViewById(R.id.menuProfile);
         im2 = findViewById(R.id.im2);
         tv2day = findViewById(R.id.tv2day);
         tv2name = findViewById(R.id.tv2name);
@@ -59,6 +64,7 @@ public class SelectStoreActivity extends AppCompatActivity implements View.OnCli
         bt1.setOnClickListener(this);
         bt2.setOnClickListener(this);
 //        bt3.setOnClickListener(this);
+        menuProfile.setOnClickListener(this);
         menuSelectStore.setOnClickListener(this);
         setStore("zWbUSFxT8HYu4ClL0jAj2C2v4dC2", im2, tv2name, tv2day, tv2place);
 
@@ -142,7 +148,39 @@ public class SelectStoreActivity extends AppCompatActivity implements View.OnCli
             intent.putExtra("id", "zWbUSFxT8HYu4ClL0jAj2C2v4dC2");
             startActivity(intent);
         }
+        if (v == menuProfile){
+            firebaseAuth = FirebaseAuth.getInstance();
+            Query userQuery = databaseReference.child("User").orderByKey().equalTo(firebaseAuth.getCurrentUser().getUid());
+            userQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.getValue() != null){
+                        startActivity(new Intent(getApplicationContext(), UserProfileActivity.class));
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    databaseError.getMessage();
+                }
+            });
+            Query storeQuery = databaseReference.child("Store").orderByKey().equalTo(firebaseAuth.getCurrentUser().getUid());
+            storeQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.getValue() != null) {
+                        startActivity(new Intent(getApplicationContext(), StoreEditProfileActivity.class));
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    databaseError.getMessage();
+                }
+            });
+        }
         if (v == menuSelectStore) {
+            finish();
             startActivity(new Intent(this, SelectStoreActivity.class));
         }
     }

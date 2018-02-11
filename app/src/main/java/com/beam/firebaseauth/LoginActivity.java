@@ -153,6 +153,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             if (dataSnapshot.getValue() != null) {
+                                finish();
                                 startActivity(new Intent(getApplicationContext(), SelectStoreActivity.class));
                             }
                         }
@@ -167,6 +168,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             if (dataSnapshot.getValue() != null) {
+                                finish();
                                 startActivity(new Intent(getApplicationContext(), StoreEditProfileActivity.class));
                             }
                         }

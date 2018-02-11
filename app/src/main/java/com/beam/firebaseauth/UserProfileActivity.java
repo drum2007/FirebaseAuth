@@ -7,39 +7,37 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class UserEditProfileActivity extends AppCompatActivity implements View.OnClickListener {
+public class UserProfileActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView tvUserEmail;
-    private Button btnSaveInfo;
+    private TextView tvUserName;
+    private TextView tvUserPhoneNumber;
+    private Button btnEditProfile;
     private Button btnLogout;
-    private EditText editTextName;
-    private EditText editTextPhoneNumber;
+    private Button menuProfile;
+    private Button menuSelectStore;
 
     private DatabaseReference databaseReference;
     private FirebaseAuth firebaseAuth;
 
-    private Button menuSelectStore;
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle actionBarDrawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_edit_profile);
-        setTitle("User Edit Profile");
+        setContentView(R.layout.activity_user_profile);
+        setTitle("User Profile");
 
         initInstance();
 
@@ -55,25 +53,45 @@ public class UserEditProfileActivity extends AppCompatActivity implements View.O
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
         tvUserEmail = findViewById(R.id.tvUserEmail);
-        editTextPhoneNumber = findViewById(R.id.editTextPhoneNumber);
-        editTextName = findViewById(R.id.editTextName);
+        tvUserName = findViewById(R.id.tvUserName);
+        tvUserPhoneNumber = findViewById(R.id.tvUserPhoneNumber);
 
-        btnSaveInfo = findViewById(R.id.btnSaveInfo);
+        btnEditProfile = findViewById(R.id.btnEditProfile);
         btnLogout = findViewById(R.id.btnLogout);
+        menuProfile = findViewById(R.id.menuProfile);
         menuSelectStore = findViewById(R.id.menuSelectStore);
 
         tvUserEmail.setText("Welcome " + user.getEmail());
 
-        btnSaveInfo.setOnClickListener(this);
+        btnEditProfile.setOnClickListener(this);
         btnLogout.setOnClickListener(this);
+        menuProfile.setOnClickListener(this);
         menuSelectStore.setOnClickListener(this);
     }
 
-    //menubar
+    @Override
+    public void onClick(View v) {
+        if (v == btnEditProfile){
+            startActivity(new Intent(this, UserEditProfileActivity.class));
+        }
+        if (v == btnLogout){
+            firebaseAuth.signOut();
+            finish();
+            startActivity(new Intent(this, LoginActivity.class));
+        }
+        if (v == menuProfile){
+
+        }
+        if (v == menuSelectStore){
+            finish();
+            startActivity(new Intent(this, SelectStoreActivity.class));
+        }
+    }
+
     private void initInstance() {
         drawerLayout = findViewById(R.id.drawerLayout);
         actionBarDrawerToggle = new ActionBarDrawerToggle(
-                UserEditProfileActivity.this,
+                UserProfileActivity.this,
                 drawerLayout,
                 R.string.open_drawer,
                 R.string.close_drawer
@@ -101,45 +119,5 @@ public class UserEditProfileActivity extends AppCompatActivity implements View.O
         if (actionBarDrawerToggle.onOptionsItemSelected(item))
             return true;
         return super.onOptionsItemSelected(item);
-    }
-    //menubar
-
-    private void saveUserInformation() {
-        String name = editTextName.getText().toString().trim();
-        String phoneNumber = editTextPhoneNumber.getText().toString().trim();
-
-        if (TextUtils.isEmpty(name)) {
-            Toast.makeText(this, "Could not save information, Name is empty", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if (TextUtils.isEmpty(phoneNumber)) {
-            Toast.makeText(this, "Could not save information, Phone number is empty", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        UserInformation userInformation = new UserInformation(name, phoneNumber);
-
-        FirebaseUser user = firebaseAuth.getCurrentUser();
-
-        databaseReference.child("User").child(user.getUid()).setValue(userInformation);
-
-        Toast.makeText(this, "Information Saved", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onClick(View v) {
-        if (v == btnLogout) {
-            firebaseAuth.signOut();
-            finish();
-            startActivity(new Intent(this, LoginActivity.class));
-        }
-
-        if (v == btnSaveInfo) {
-            saveUserInformation();
-        }
-        if (v == menuSelectStore) {
-            startActivity(new Intent(this, SelectStoreActivity.class));
-        }
     }
 }

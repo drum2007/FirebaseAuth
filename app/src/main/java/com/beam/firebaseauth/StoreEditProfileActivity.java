@@ -1,6 +1,5 @@
 package com.beam.firebaseauth;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -73,7 +72,7 @@ public class StoreEditProfileActivity extends AppCompatActivity implements View.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_store_profile);
+        setContentView(R.layout.activity_store_edit_profile);
         setTitle("Store Profile");
 
         initInstance();
@@ -181,10 +180,10 @@ public class StoreEditProfileActivity extends AppCompatActivity implements View.
             showFileChooser();
         }
         if (v == btnChooseLocation) {
-            PlacePicker.IntentBuilder mapbuilder = new PlacePicker.IntentBuilder();
+            PlacePicker.IntentBuilder mapBuilder = new PlacePicker.IntentBuilder();
 
             try {
-                startActivityForResult(mapbuilder.build(this), PLACE_PICKER_REQUEST);
+                startActivityForResult(mapBuilder.build(this), PLACE_PICKER_REQUEST);
 
             } catch (GooglePlayServicesRepairableException e) {
                 e.printStackTrace();
@@ -418,7 +417,6 @@ public class StoreEditProfileActivity extends AppCompatActivity implements View.
         }
 
     }
-
 
 }
 
