@@ -34,9 +34,4 @@
     <string name="tv_about_store">About Store:</string>
     <string name="choose_Location">choose location</string>
     <string name="store_s_profile_picture">Store\'s profile picture</string>
-    <string name="store_time">Time</string>
-    <string name="store_address">address</string>
-    <string name="store_day">Day</string>
-    <string name="store_about">About</string>
-    <string name="store_phone">Phone</string>
 </resources>
