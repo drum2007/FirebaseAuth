@@ -32,10 +32,10 @@
                 android:src="@mipmap/defualtphotos" />
 
             <Button
-                android:layout_gravity="center_horizontal"
                 android:id="@+id/btnChooseImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:text="@string/choose_image" />
 
             <EditText
@@ -170,6 +170,33 @@
 
             </LinearLayout>
 
+
+            <Button
+                android:id="@+id/btnChooseLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/choose_Location" />
+
+            <TextView
+                android:id="@+id/tvPlace"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="get place"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tvAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="get address"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tvLatlng"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="get latlng"
+                android:textSize="15sp" />
 
             <Button
                 android:id="@+id/btnSaveInfo"

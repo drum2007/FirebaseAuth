@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -199,7 +200,7 @@ public class ReserveActivity extends AppCompatActivity implements DatePickerDial
         Confirmation confirmation = new Confirmation(numberOfPeople, user.getUid());
 
         //must save under store uid
-        databaseReference.child("Store").child("2XHfcqzJKOaXQ2yd5OuomM60ek33").child("ReserveInfo")
+        databaseReference.child("Store").child("zWbUSFxT8HYu4ClL0jAj2C2v4dC2").child("ReserveInfo")
                 .child("Year: " + year).child("Month: " + month).child("Date: " + dayOfMonth).setValue(confirmation);
 
         Toast.makeText(this, "Reservation Saved", Toast.LENGTH_SHORT).show();
@@ -262,11 +263,10 @@ public class ReserveActivity extends AppCompatActivity implements DatePickerDial
         LatLng CMU_Clock_Tower = new LatLng(18.796488, 98.953402);
         mMap.addMarker(new MarkerOptions().position(CMU_Clock_Tower).title("Marker in CMU").snippet("Hello CMU"));
 
-        LatLng myDome = new LatLng(18.788302, 98.955049);
-        mMap.addMarker(new MarkerOptions().position(myDome).title("My Dome").snippet("Hello my Dome"));
+            LatLng myDome = new LatLng(18.788302, 98.955049);
+            mMap.addMarker(new MarkerOptions().position(myDome).title("My Dome").snippet("Hello my Dome"));
 
-        LatLng center = new LatLng( 18.79, 98.954);
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(center, 13));
+            LatLng center = new LatLng( 18.79, 98.954);
 
         mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
 

@@ -16,80 +16,115 @@
         android:paddingRight="16dp"
         android:paddingTop="16dp"
         android:weightSum="3">
-    <RelativeLayout xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginBottom="10dp"
-        android:layout_weight="1"
-        android:background="@color/green">
 
-        <Button
-            android:id="@+id/bt1"
+        <RelativeLayout xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true" />
+            android:layout_height="0dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:background="@color/green">
 
+            <Button
+                android:id="@+id/bt1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true" />
 
-    </RelativeLayout>
+        </RelativeLayout>
 
-    <RelativeLayout xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginBottom="10dp"
-        android:layout_weight="1"
-        android:background="@color/green">
-
-        <Button
-            android:id="@+id/bt2"
+        <RelativeLayout xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true" />
+            android:layout_height="0dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:background="@color/green">
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-    </RelativeLayout>
+                <Button
+                    android:id="@+id/bt2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true" />
 
-    <RelativeLayout xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginBottom="10dp"
-        android:layout_weight="1"
-        android:background="@color/green">
+            </RelativeLayout>
 
-        <Button
-            android:id="@+id/bt3"
+            <ImageView
+                android:id="@+id/im2"
+                android:layout_width="140dp"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp" />
+
+            <TextView
+                android:id="@+id/tv2name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_toRightOf="@id/im2" />
+
+            <TextView
+                android:id="@+id/tv2day"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv2name"
+                android:layout_margin="10dp"
+                android:layout_toRightOf="@id/im2" />
+
+            <TextView
+                android:id="@+id/tv2place"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv2day"
+                android:layout_margin="10dp"
+                android:layout_toRightOf="@id/im2" />
+
+        </RelativeLayout>
+
+        <RelativeLayout xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true" />
+            android:layout_height="0dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:background="@color/green">
 
-    </RelativeLayout>
+            <Button
+                android:id="@+id/bt3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true" />
+
+
+        </RelativeLayout>
 
     </LinearLayout>
     <!--menu-->
     <LinearLayout
-        android:layout_gravity="start"
-        android:background="#ffffff"
         android:layout_width="320dp"
         android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="#ffffff"
         android:orientation="vertical">
 
         <Button
             android:id="@+id/menuProfile"
-            android:text="Profile"
-            android:contentDescription="Profile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/green"
-            />
+            android:contentDescription="Profile"
+            android:text="Profile" />
+
         <Button
             android:id="@+id/menuSelectStore"
-            android:text="Select Store"
-            android:contentDescription="Select Store"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/green"/>
+            android:background="@color/green"
+            android:contentDescription="Select Store"
+            android:text="Select Store" />
 
     </LinearLayout>
 

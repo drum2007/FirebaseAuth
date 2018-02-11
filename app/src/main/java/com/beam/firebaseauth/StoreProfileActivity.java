@@ -1,5 +1,6 @@
 package com.beam.firebaseauth;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -22,6 +23,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -39,6 +44,7 @@ import java.io.IOException;
 
 public class StoreProfileActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private static final int PLACE_PICKER_REQUEST = 1;
     private static final int PICK_IMAGE = 123;
     private EditText editTextName;
     private EditText editTextPhoneNumber;
@@ -48,9 +54,13 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
     private EditText aboutStore;
     private Button btnSaveInfo;
     private TextView tvStoreEmail;
+    private TextView tvPlace;
+    private TextView tvAddress;
+    private TextView tvLatlng;
     private Button btnLogout;
     private Button menuSelectStore;
     private Button btnChooseImage;
+    private Button btnChooseLocation;
     private ImageView imageView;
     private int[] arrayDay = {0, 0, 0, 0, 0, 0, 0};
 
@@ -83,12 +93,30 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
 
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
+        tvAddress = findViewById(R.id.tvAddress);
+        tvLatlng = findViewById(R.id.tvLatlng);
+        tvPlace = findViewById(R.id.tvPlace);
+        tvStoreEmail = findViewById(R.id.tvStoreEmail);
+        editTextName = findViewById(R.id.editTextName);
+        editTextPhoneNumber = findViewById(R.id.editTextPhoneNumber);
+        openTime = findViewById(R.id.openTime);
+        closeTime = findViewById(R.id.closeTime);
+        storeCapacity = findViewById(R.id.storeCapacity);
+        aboutStore = findViewById(R.id.editTextAboutStore);
+        menuSelectStore = findViewById(R.id.menuSelectStore);
+        imageView = findViewById(R.id.imageView);
+
+        btnChooseImage = findViewById(R.id.btnChooseImage);
+        btnChooseLocation = findViewById(R.id.btnChooseLocation);
+        btnSaveInfo = findViewById(R.id.btnSaveInfo);
+        btnLogout = findViewById(R.id.btnLogout);
         tvStoreEmail.setText(String.format("Welcome %s", user.getEmail()));
 
         btnSaveInfo.setOnClickListener(this);
         btnLogout.setOnClickListener(this);
         menuSelectStore.setOnClickListener(this);
         btnChooseImage.setOnClickListener(this);
+        btnChooseLocation.setOnClickListener(this);
     }
 
     private void initInstance() {
@@ -154,6 +182,18 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
         if (v == btnChooseImage) {
             showFileChooser();
         }
+        if (v == btnChooseLocation) {
+            PlacePicker.IntentBuilder mapbuilder = new PlacePicker.IntentBuilder();
+
+            try {
+                startActivityForResult(mapbuilder.build(this), PLACE_PICKER_REQUEST);
+
+            } catch (GooglePlayServicesRepairableException e) {
+                e.printStackTrace();
+            } catch (GooglePlayServicesNotAvailableException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     //select image
@@ -190,6 +230,16 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
                 imageView.setImageBitmap(bitmap);
             } catch (IOException e) {
                 e.printStackTrace();
+            }
+        }
+        if (requestCode == PLACE_PICKER_REQUEST) {
+            if (requestCode == 1) { //Result_OK ?
+                Place place = PlacePicker.getPlace(this, data);
+                String placeName = String.format("Place: %s", place.getAddress());
+                tvPlace.setText(place.getName());
+                tvAddress.setText(place.getAddress());
+                tvLatlng.setText(place.getLatLng().toString());
+
             }
         }
     }
@@ -249,6 +299,9 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
         String close = closeTime.getText().toString().trim();
         String capacity = storeCapacity.getText().toString().trim();
         String AboutStore = aboutStore.getText().toString().trim();
+        String place = tvPlace.getText().toString().trim();
+        String address = tvAddress.getText().toString().trim();
+        String latlng = tvLatlng.getText().toString().substring(10,tvLatlng.getText().length()-1);
 
         if (TextUtils.isEmpty(storeName)) {
             Toast.makeText(this, "Please enter store's name", Toast.LENGTH_SHORT).show();
@@ -275,7 +328,13 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
             return;
         }
 
-        StoreInformation storeInformation = new StoreInformation(storeName, phoneNumber, open, close, capacity, AboutStore);
+        if (TextUtils.isEmpty(place) || TextUtils.isEmpty(address) ||TextUtils.isEmpty(latlng)) {
+            Toast.makeText(this, "Please select store's loacation", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+
+        StoreInformation storeInformation = new StoreInformation(storeName, phoneNumber, open, close, capacity, AboutStore, place, address, latlng);
 
         FirebaseUser user = firebaseAuth.getCurrentUser();
 

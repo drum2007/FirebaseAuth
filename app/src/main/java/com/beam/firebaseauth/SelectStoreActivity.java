@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,6 +25,11 @@ public class SelectStoreActivity extends AppCompatActivity implements View.OnCli
     private Button bt1;
     private Button bt2;
 //    private Button bt3;
+    private ImageView im2;
+    private TextView tv2name;
+    private TextView tv2day;
+    private TextView tv2place;
+
     private Button menuSelectStore;
 
     private DatabaseReference databaseReference;
@@ -45,11 +51,35 @@ public class SelectStoreActivity extends AppCompatActivity implements View.OnCli
         bt2 = findViewById(R.id.bt2);
 //        bt3 = findViewById(R.id.bt3);
         menuSelectStore = findViewById(R.id.menuSelectStore);
+        im2 = findViewById(R.id.im2);
+        tv2day = findViewById(R.id.tv2day);
+        tv2name = findViewById(R.id.tv2name);
+        tv2place = findViewById(R.id.tv2place);
 
         bt1.setOnClickListener(this);
         bt2.setOnClickListener(this);
 //        bt3.setOnClickListener(this);
         menuSelectStore.setOnClickListener(this);
+
+        setStore("zWbUSFxT8HYu4ClL0jAj2C2v4dC2",im2,tv2name,tv2day,tv2place);
+    }
+    //Set store//
+    private void setStore(String storeID, ImageView image, final TextView name, final TextView day, final TextView place) {
+        Query storeQuery = databaseReference.child("Store").child(storeID).child("StoreInfo");
+        storeQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    name.setText(dataSnapshot.child("storeName").getValue(String.class));
+                    day.setText(dataSnapshot.child("openTime").getValue(String.class) + " - " + dataSnapshot.child("closeTime").getValue(String.class));
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     //menubar
@@ -106,7 +136,7 @@ public class SelectStoreActivity extends AppCompatActivity implements View.OnCli
         }
         if (v == bt2) {
             Intent intent = new Intent(this, ReserveActivity.class);
-            intent.putExtra("id","2XHfcqzJKOaXQ2yd5OuomM60ek33");
+            intent.putExtra("id","zWbUSFxT8HYu4ClL0jAj2C2v4dC2");
             startActivity(intent);
         }
         if (v == menuSelectStore) {

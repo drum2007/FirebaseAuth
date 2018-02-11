@@ -5,132 +5,126 @@
     android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.beam.firebaseauth.LoginActivity"
+    android:layout_gravity="center"
 
     android:paddingHorizontal="20dp"
     android:paddingVertical="10dp"
-    android:layout_gravity="center"
-    >
+    tools:context="com.beam.firebaseauth.LoginActivity">
     <!--content-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingTop="30dp"
-            android:padding="20dp"
-            android:background="@color/green"
             android:layout_weight="2"
-            >
+            android:background="@color/green"
+            android:orientation="vertical"
+            android:padding="20dp"
+            android:paddingTop="30dp">
             <!--<ImageView-->
-                <!--android:layout_gravity="center"-->
-                <!--android:layout_width="100dp"-->
-                <!--android:layout_height="100dp" />-->
-            <de.hdodenhof.circleimageview.CircleImageView
-                xmlns:app="http://schemas.android.com/apk/res-auto"
+            <!--android:layout_gravity="center"-->
+            <!--android:layout_width="100dp"-->
+            <!--android:layout_height="100dp" />-->
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/profile_image"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:layout_gravity="center"
-                android:src="@drawable/user"
-                />
-        
-    <!--<TextView-->
-        <!--android:textSize="30sp"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:gravity="center_horizontal"-->
-        <!--android:text="@string/login"-->
-        <!--tools:ignore="SpUsage" />-->
+                android:src="@drawable/user" />
 
-        <EditText
-            android:inputType="textEmailAddress"
-            android:hint="@string/enter_your_email"
-            android:id="@+id/editTextEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:layout_margin="10dp"
-        />
+            <!--<TextView-->
+            <!--android:textSize="30sp"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:gravity="center_horizontal"-->
+            <!--android:text="@string/login"-->
+            <!--tools:ignore="SpUsage" />-->
 
-        <EditText
-        android:inputType="textPassword"
-        android:hint="@string/enter_your_password"
-        android:id="@+id/editTextPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:background="@color/white"
-        />
+            <EditText
+                android:id="@+id/editTextEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@color/white"
+                android:hint="@string/enter_your_email"
+                android:inputType="textEmailAddress" />
 
-        <Button
-            android:text="@string/sign_in"
-            android:textColor="@color/white"
-            android:id="@+id/btnSignIn"
-            android:layout_gravity="center_horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/green"
-            android:layout_marginTop="40dp"
-        />
+            <EditText
+                android:id="@+id/editTextPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@color/white"
+                android:hint="@string/enter_your_password"
+                android:inputType="textPassword" />
+
+            <Button
+                android:id="@+id/btnSignIn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="40dp"
+                android:background="@color/green"
+                android:text="@string/sign_in"
+                android:textColor="@color/white" />
         </LinearLayout>
-        <Button
-            android:text="@string/register_for_user"
-            android:id="@+id/btnUserSignUp"
-            android:layout_gravity="center_horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/green"
-            android:layout_weight="1"
-            android:layout_margin="20dp"
-            android:textColor="@color/white"/>
 
         <Button
-            android:text="@string/register_for_store"
-            android:id="@+id/btnStoreSignUp"
-            android:layout_gravity="center_horizontal"
+            android:id="@+id/btnUserSignUp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/green"
-            android:layout_weight="1"
+            android:layout_gravity="center_horizontal"
             android:layout_margin="20dp"
-            android:textColor="@color/white"
-            />
+            android:layout_weight="1"
+            android:background="@color/green"
+            android:text="@string/register_for_user"
+            android:textColor="@color/white" />
+
         <Button
-            android:text="Map"
+            android:id="@+id/btnStoreSignUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="20dp"
+            android:layout_weight="1"
+            android:background="@color/green"
+            android:text="@string/register_for_store"
+            android:textColor="@color/white" />
+
+        <Button
             android:id="@+id/btMap"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        </LinearLayout>
-
+            android:layout_height="wrap_content"
+            android:text="Map" />
+    </LinearLayout>
 
 
     <!-- menu -->
     <LinearLayout
-        android:layout_gravity="start"
-        android:background="#ffffff"
         android:layout_width="320dp"
         android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="#ffffff"
         android:orientation="vertical">
 
         <Button
             android:id="@+id/menuProfile"
-            android:text="Profile"
-            android:contentDescription="Profile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/green"
-            />
+            android:contentDescription="Profile"
+            android:text="Profile" />
+
         <Button
             android:id="@+id/menuSelectStore"
-            android:text="Select Store"
-            android:contentDescription="Select Store"
-              android:layout_width="match_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/green"/>
+            android:background="@color/green"
+            android:contentDescription="Select Store"
+            android:text="Select Store" />
 
     </LinearLayout>
 
