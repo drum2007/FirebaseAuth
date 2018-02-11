@@ -41,14 +41,22 @@ import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Map;
 
-public class ReserveActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, View.OnClickListener, OnMapReadyCallback {
+public class ReserveActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, View.OnClickListener { //OnMapReadyCallback
 
     private EditText editTextNumber;
     private Button btnDate;
     private TextView tvDate;
     private Button btnConfirm;
     private Button menuSelectStore;
+
+    private ImageView imStore;
     private TextView tvStoreName;
+    private TextView tvStoreDay;
+    private TextView tvStoreTime;
+    private TextView tvStoreAddress;
+    private TextView tvStoreAbout;
+    private TextView tvStorePhone;
+
     private GoogleMap mMap;
 
     private FirebaseAuth firebaseAuth;
@@ -81,14 +89,20 @@ public class ReserveActivity extends AppCompatActivity implements DatePickerDial
         btnConfirm = findViewById(R.id.btnConfirm);
         menuSelectStore = findViewById(R.id.menuSelectStore);
         tvStoreName = findViewById(R.id.tvStoreName);
+        imStore = findViewById(R.id.imStore);
+        tvStoreDay = findViewById(R.id.tvStoreDay);
+        tvStoreTime = findViewById(R.id.tvStoreTime);
+        tvStoreAddress = findViewById(R.id.tvStoreAddress);
+        tvStoreAbout = findViewById(R.id.tvStoreAbout);
+        tvStorePhone = findViewById(R.id.tvStorePhone);
 
         btnDate.setOnClickListener(this);
         btnConfirm.setOnClickListener(this);
         menuSelectStore.setOnClickListener(this);
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+//        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+//                .findFragmentById(R.id.map);
+//        mapFragment.getMapAsync(this);
 
         // Intent Data
         String storeID = getIntent().getStringExtra("id");
@@ -96,9 +110,20 @@ public class ReserveActivity extends AppCompatActivity implements DatePickerDial
         storeQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()){
+                if (dataSnapshot.exists()) {
                     String storeName = dataSnapshot.child("storeName").getValue(String.class);
+                    String storeOpenTime = dataSnapshot.child("openTime").getValue(String.class);
+                    String storeCloseTime = dataSnapshot.child("closeTime").getValue(String.class);
+                    String storeAddress = dataSnapshot.child("address").getValue(String.class);
+                    String storeAbout = dataSnapshot.child("aboutStore").getValue(String.class);
+                    String storePhone = dataSnapshot.child("phoneNumber").getValue(String.class);
+                    // String storeDay = dataSnapshot.child("day").getValue(String.class);
                     tvStoreName.setText(storeName);
+                    tvStoreTime.setText("Time : " + storeOpenTime + " - " + storeCloseTime);
+                    tvStoreAddress.setText(storeAddress);
+                    tvStoreAbout.setText(storeAbout);
+                    tvStorePhone.setText(storePhone);
+                    // tvStoreDay.setText("Day : " + storeDay);
                 }
             }
 
@@ -108,6 +133,7 @@ public class ReserveActivity extends AppCompatActivity implements DatePickerDial
             }
         });
     }
+
     //menubar
     private void initInstance() {
         drawerLayout = findViewById(R.id.drawerLayout);
@@ -141,6 +167,7 @@ public class ReserveActivity extends AppCompatActivity implements DatePickerDial
             return true;
         return super.onOptionsItemSelected(item);
     }
+
     //menubar
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -254,51 +281,51 @@ public class ReserveActivity extends AppCompatActivity implements DatePickerDial
 
         return realMonth;
     }
-    //Map //
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-
-        // Add a marker in Sydney and move the camera
-        LatLng CMU_Clock_Tower = new LatLng(18.796488, 98.953402);
-        mMap.addMarker(new MarkerOptions().position(CMU_Clock_Tower).title("Marker in CMU").snippet("Hello CMU"));
-
-            LatLng myDome = new LatLng(18.788302, 98.955049);
-            mMap.addMarker(new MarkerOptions().position(myDome).title("My Dome").snippet("Hello my Dome"));
-
-            LatLng center = new LatLng( 18.79, 98.954);
-
-        mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
-
-
-            @Override
-            // Return null here, so that getInfoContents() is called next.
-            public View getInfoWindow(Marker arg0) {
-                return null;
-            }
-
-            @Override
-            public View getInfoContents(Marker marker) {
-                // Inflate the layouts for the info window, title and snippet.
-                View infoWindow = getLayoutInflater().inflate(R.layout.custom_info_contents, null);
-
-
-                TextView title = ((TextView) infoWindow.findViewById(R.id.textViewName));
-                title.setText(marker.getTitle());
-
-
-                TextView snippet = ((TextView) infoWindow.findViewById(R.id.textViewSnippet));
-                snippet.setText(marker.getSnippet());
-
-                ImageView imageView = (ImageView) infoWindow.findViewById(R.id.imageView);
-                imageView.setImageResource(R.drawable.ic_city);
-                if ("My Home".equals(marker.getTitle())) {
-                    imageView.setImageResource(R.drawable.ic_home);
-                }
-
-                return infoWindow;
-            }
-        });
-    }
-    //Map//
+//    //Map //
+//    @Override
+//    public void onMapReady(GoogleMap googleMap) {
+//        mMap = googleMap;
+//
+//        // Add a marker in Sydney and move the camera
+//        LatLng CMU_Clock_Tower = new LatLng(18.796488, 98.953402);
+//        mMap.addMarker(new MarkerOptions().position(CMU_Clock_Tower).title("Marker in CMU").snippet("Hello CMU"));
+//
+//            LatLng myDome = new LatLng(18.788302, 98.955049);
+//            mMap.addMarker(new MarkerOptions().position(myDome).title("My Dome").snippet("Hello my Dome"));
+//
+//            LatLng center = new LatLng( 18.79, 98.954);
+//
+//        mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+//
+//
+//            @Override
+//            // Return null here, so that getInfoContents() is called next.
+//            public View getInfoWindow(Marker arg0) {
+//                return null;
+//            }
+//
+//            @Override
+//            public View getInfoContents(Marker marker) {
+//                // Inflate the layouts for the info window, title and snippet.
+//                View infoWindow = getLayoutInflater().inflate(R.layout.custom_info_contents, null);
+//
+//
+//                TextView title = ((TextView) infoWindow.findViewById(R.id.textViewName));
+//                title.setText(marker.getTitle());
+//
+//
+//                TextView snippet = ((TextView) infoWindow.findViewById(R.id.textViewSnippet));
+//                snippet.setText(marker.getSnippet());
+//
+//                ImageView imageView = (ImageView) infoWindow.findViewById(R.id.imageView);
+//                imageView.setImageResource(R.drawable.ic_city);
+//                if ("My Home".equals(marker.getTitle())) {
+//                    imageView.setImageResource(R.drawable.ic_home);
+//                }
+//
+//                return infoWindow;
+//            }
+//        });
+//    }
+//    //Map//
 }

@@ -56,8 +56,9 @@
             <ImageView
                 android:id="@+id/im2"
                 android:layout_width="140dp"
-                android:layout_height="match_parent"
-                android:layout_margin="10dp" />
+                android:layout_height="140dp"
+                android:layout_margin="10dp"
+                android:src="@mipmap/defualtphotos" />
 
             <TextView
                 android:id="@+id/tv2name"

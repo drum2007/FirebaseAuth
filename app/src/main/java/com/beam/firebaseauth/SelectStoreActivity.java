@@ -24,7 +24,7 @@ public class SelectStoreActivity extends AppCompatActivity implements View.OnCli
 
     private Button bt1;
     private Button bt2;
-//    private Button bt3;
+    //    private Button bt3;
     private ImageView im2;
     private TextView tv2name;
     private TextView tv2day;
@@ -60,16 +60,19 @@ public class SelectStoreActivity extends AppCompatActivity implements View.OnCli
         bt2.setOnClickListener(this);
 //        bt3.setOnClickListener(this);
         menuSelectStore.setOnClickListener(this);
+        setStore("zWbUSFxT8HYu4ClL0jAj2C2v4dC2", im2, tv2name, tv2day, tv2place);
 
-        setStore("zWbUSFxT8HYu4ClL0jAj2C2v4dC2",im2,tv2name,tv2day,tv2place);
     }
+
     //Set store//
-    private void setStore(String storeID, ImageView image, final TextView name, final TextView day, final TextView place) {
+    private void setStore(String storeID, ImageView image, final TextView name, final TextView day, TextView place) {
         Query storeQuery = databaseReference.child("Store").child(storeID).child("StoreInfo");
         storeQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()){
+                if (dataSnapshot.exists()) {
+                    System.out.println("qqqqqqqqqqqqqqqq");
+                    System.out.println(dataSnapshot.child("storeName").getValue(String.class));
                     name.setText(dataSnapshot.child("storeName").getValue(String.class));
                     day.setText(dataSnapshot.child("openTime").getValue(String.class) + " - " + dataSnapshot.child("closeTime").getValue(String.class));
                 }
@@ -136,7 +139,7 @@ public class SelectStoreActivity extends AppCompatActivity implements View.OnCli
         }
         if (v == bt2) {
             Intent intent = new Intent(this, ReserveActivity.class);
-            intent.putExtra("id","zWbUSFxT8HYu4ClL0jAj2C2v4dC2");
+            intent.putExtra("id", "zWbUSFxT8HYu4ClL0jAj2C2v4dC2");
             startActivity(intent);
         }
         if (v == menuSelectStore) {

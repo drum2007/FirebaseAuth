@@ -7,111 +7,215 @@
     android:layout_height="match_parent"
     tools:context="com.beam.firebaseauth.ReserveActivity">
     <!--content-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:paddingTop="16dp"
-        android:weightSum="3">
-    <TextView
-        android:text="ddsi"
-        android:id="@+id/tvStoreName"
-        android:textColor="@color/white"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#0fffff"
-        android:layout_margin="5dp"/>
-    <EditText
-        android:id="@+id/editTextNumber"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="number of people"
-        android:inputType="number" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="5dp">
-
-        <Button
-            android:id="@+id/btnDate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="2"
-            android:background="@color/green"
-            android:text="Date picker"
-            android:textColor="@color/white"/>
-
-        <TextView
-            android:id="@+id/tvDate"
-            android:textColor="@color/green"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="2"
-            android:layout_margin="5dp"/>
-
-    </LinearLayout>
-
-    <Button
-        android:text="Confirm"
-        android:textColor="@color/white"
-        android:id="@+id/btnConfirm"
+    <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="25dp"
-        android:background="@color/green"/>
-    <fragment
-        xmlns:map="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/map"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_gravity="bottom">
-    </fragment>
-    </LinearLayout>
+        android:layout_margin="5dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <!--Detail-->
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/border_linegreen">
+
+                <ImageView
+                    android:id="@+id/imStore"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/border_linewhite"
+                    android:src="@mipmap/defualtphotos" />
+
+                <LinearLayout
+                    android:id="@+id/StoreDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_margin="5dp"
+                    android:layout_toRightOf="@id/imStore"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="5dp"
+                    android:paddingVertical="3dp">
+
+                    <TextView
+                        android:id="@+id/tvStoreName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="1dp"
+                        android:layout_weight="1"
+                        android:text="@string/store_name"
+                        android:textStyle="bold"
+                        android:textColor="@color/green" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="1dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tvStoreDay"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="1dp"
+                            android:layout_weight="1"
+                            android:text="@string/store_day"
+                            android:textColor="@color/green" />
+
+                        <TextView
+                            android:id="@+id/tvStoreTime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="1dp"
+                            android:layout_weight="1"
+                            android:text="@string/store_time"
+                            android:textColor="@color/green" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tvStorePhone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="1dp"
+                        android:layout_weight="1"
+                        android:text="@string/store_phone"
+                        android:textColor="@color/green" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvStoreAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/StoreDetail"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:text="@string/store_address"
+                    android:textColor="@color/green" />
+
+                <TextView
+                    android:id="@+id/tvStoreAbout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tvStoreAddress"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/border_linegreen"
+                    android:padding="5dp"
+                    android:text="@string/store_about"
+
+                    android:textColor="@color/green" />
+            </RelativeLayout>
+            <!--Reserve-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/border_linegreen"
+                android:orientation="vertical"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="16dp"
+                android:weightSum="3">
+
+                <EditText
+                    android:id="@+id/editTextNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="number of people"
+                    android:inputType="number" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btnDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="4"
+                        android:background="@color/green"
+                        android:text="Date picker"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:id="@+id/tvDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:layout_weight="2"
+                        android:textColor="@color/green" />
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btnConfirm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="25dp"
+                    android:background="@color/green"
+                    android:text="Confirm"
+                    android:textColor="@color/white" />
+                <!--<fragment-->
+                <!--xmlns:map="http://schemas.android.com/apk/res-auto"-->
+                <!--xmlns:tools="http://schemas.android.com/tools"-->
+                <!--android:id="@+id/map"-->
+                <!--android:name="com.google.android.gms.maps.SupportMapFragment"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="300dp"-->
+                <!--android:layout_gravity="bottom">-->
+                <!--</fragment>-->
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
 
     <!-- menu -->
     <LinearLayout
-        android:layout_gravity="start"
-        android:background="#ffffff"
         android:layout_width="320dp"
         android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="#ffffff"
         android:orientation="vertical">
 
         <Button
             android:id="@+id/menuProfile"
-            android:text="Profile"
-            android:contentDescription="Profile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/green"
-            />
+            android:contentDescription="Profile"
+            android:text="Profile" />
+
         <Button
             android:id="@+id/menuSelectStore"
-            android:text="Select Store"
-            android:contentDescription="Select Store"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/green"/>
+            android:background="@color/green"
+            android:contentDescription="Select Store"
+            android:text="Select Store" />
+
         <TextView
             android:id="@+id/tvLat"
-            android:background="@color/white"
-            android:textColor="@color/white"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:textColor="@color/white" />
+
         <TextView
             android:id="@+id/tvLng"
-            android:background="@color/white"
-            android:textColor="@color/white"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:textColor="@color/white" />
 
     </LinearLayout>
 
