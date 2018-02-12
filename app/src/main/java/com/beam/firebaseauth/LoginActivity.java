@@ -35,7 +35,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Button btnUserSignUp;
     private Button btnStoreSignUp;
     private Button menuSelectStore;
-    private Button btMap;
+   // private Button btMap;
 
     private ProgressDialog progressDialog;
 
@@ -66,13 +66,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         btnUserSignUp = findViewById(R.id.btnUserSignUp);
         btnStoreSignUp = findViewById(R.id.btnStoreSignUp);
         menuSelectStore = findViewById(R.id.menuSelectStore);
-        btMap = findViewById(R.id.btMap);
+    //    btMap = findViewById(R.id.btMap);
 
         btnSignIn.setOnClickListener(this);
         btnUserSignUp.setOnClickListener(this);
         btnStoreSignUp.setOnClickListener(this);
         menuSelectStore.setOnClickListener(this);
-        btMap.setOnClickListener(this);
+     //   btMap.setOnClickListener(this);
     }
 
     private void initInstance() {
@@ -120,9 +120,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (v == menuSelectStore) {
             startActivity(new Intent(this, SelectStoreActivity.class));
         }
-        if (v == btMap) {
-            startActivity(new Intent(this, MapsActivity.class));
-        }
+//        if (v == btMap) {
+//            startActivity(new Intent(this, MapsActivity.class));
+//        }
     }
 
     private void userLogin() {
