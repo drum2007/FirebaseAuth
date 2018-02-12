@@ -42,4 +42,9 @@
     <string name="confirm">Confirm</string>
     <string name="date_picker">Date picker</string>
     <string name="number_of_people">number of people</string>
+    <string name="store_day">Day</string>
+    <string name="store_time">Time</string>
+    <string name="store_phone">Phone</string>
+    <string name="store_address">address</string>
+    <string name="store_about">about</string>
 </resources>
