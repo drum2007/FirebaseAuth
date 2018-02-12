@@ -169,7 +169,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             if (dataSnapshot.getValue() != null) {
                                 finish();
-                                startActivity(new Intent(getApplicationContext(), StoreEditProfileActivity.class));
+                                startActivity(new Intent(getApplicationContext(), StoreProfileActivity.class));
                             }
                         }
 

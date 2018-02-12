@@ -58,6 +58,8 @@
 
                     android:background="@drawable/border_linewhite"
 
+                    android:contentDescription="@string/store_s_profile_picture"
+
                     android:src="@mipmap/defualtphotos" />
 
 
@@ -71,7 +73,7 @@
 
                     android:layout_margin="5dp"
 
-                    android:layout_toRightOf="@id/imStore"
+                    android:layout_toEndOf="@id/imStore"
 
                     android:orientation="vertical"
 
@@ -107,9 +109,9 @@
 
                         android:layout_margin="1dp"
 
-                        android:layout_weight="1"
+                        android:orientation="horizontal"
 
-                        android:orientation="horizontal">
+                        android:weightSum="2">
 
 
                         <TextView
@@ -159,8 +161,6 @@
 
                         android:layout_margin="1dp"
 
-                        android:layout_weight="1"
-
                         android:text="@string/store_phone"
 
                         android:textColor="@color/green" />
@@ -179,8 +179,6 @@
                     android:layout_below="@id/StoreDetail"
 
                     android:layout_margin="10dp"
-
-                    android:layout_weight="1"
 
                     android:text="@string/store_address"
 
@@ -204,7 +202,6 @@
                     android:padding="5dp"
 
                     android:text="@string/store_about"
-
 
                     android:textColor="@color/green" />
 
@@ -232,20 +229,6 @@
 
                 android:weightSum="3">
 
-
-                <EditText
-
-                    android:id="@+id/editTextNumber"
-
-                    android:layout_width="match_parent"
-
-                    android:layout_height="wrap_content"
-
-                    android:hint="number of people"
-
-                    android:inputType="number" />
-
-
                 <LinearLayout
 
                     android:layout_width="match_parent"
@@ -271,7 +254,7 @@
 
                         android:background="@color/green"
 
-                        android:text="Date picker"
+                        android:text="@string/date_picker"
 
                         android:textColor="@color/white" />
 
@@ -295,6 +278,53 @@
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_margin="2dp"
+                        android:background="@drawable/border_linewhite"
+                        android:src="@mipmap/human_icon" />
+
+                    <EditText
+                        android:id="@+id/editTextNumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="@string/amount"
+                        android:inputType="number" />
+
+                    <!--<Spinner-->
+                    <!--android:id="@+id/spinner1"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:background="@android:drawable/btn_dropdown"-->
+                    <!--android:spinnerMode="dropdown" />-->
+
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_margin="2dp"
+                        android:background="@drawable/border_linewhite"
+                        android:src="@mipmap/clock_icon" />
+
+                    <EditText
+                        android:id="@+id/reserveTime"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="@string/time"
+                        android:inputType="time" />
+
+                </LinearLayout>
+
 
                 <Button
 
@@ -310,7 +340,7 @@
 
                     android:background="@color/green"
 
-                    android:text="Confirm"
+                    android:text="@string/confirm"
 
                     android:textColor="@color/white" />
 

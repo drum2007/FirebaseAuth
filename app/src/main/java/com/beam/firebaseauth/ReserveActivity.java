@@ -12,10 +12,13 @@ import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewDebug;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,9 +44,11 @@ import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Map;
 
-public class ReserveActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, View.OnClickListener { //OnMapReadyCallback
+public class ReserveActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, View.OnClickListener{//, AdapterView.OnItemClickListener { //OnMapReadyCallback
 
-    private EditText editTextNumber;
+    private static final String[]paths = {"item1", "item2", "item3"};
+
+    private EditText editTextNumber, reserveTime;
     private Button btnDate;
     private TextView tvDate;
     private Button btnConfirm;
@@ -89,8 +94,8 @@ public class ReserveActivity extends AppCompatActivity implements DatePickerDial
         btnConfirm = findViewById(R.id.btnConfirm);
         menuSelectStore = findViewById(R.id.menuSelectStore);
         tvStoreName = findViewById(R.id.tvStoreName);
+        reserveTime = findViewById(R.id.reserveTime);
 
-        //TODO: add whatever you need
         imStore = findViewById(R.id.imStore);
         tvStoreDay = findViewById(R.id.tvStoreDay);
         tvStoreTime = findViewById(R.id.tvStoreTime);
@@ -98,7 +103,14 @@ public class ReserveActivity extends AppCompatActivity implements DatePickerDial
         tvStoreAbout = findViewById(R.id.tvStoreAbout);
         tvStorePhone = findViewById(R.id.tvStorePhone);
 
+        //Spinner spinner = findViewById(R.id.spinner1);
+        //ArrayAdapter<String>adapter = new ArrayAdapter<String>(ReserveActivity.this, R.layout.support_simple_spinner_dropdown_item,paths);
+
+        //adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        //spinner.setAdapter(adapter);
+
         btnDate.setOnClickListener(this);
+        //spinner.setOnItemClickListener(this);
         btnConfirm.setOnClickListener(this);
         menuSelectStore.setOnClickListener(this);
 
@@ -131,7 +143,7 @@ public class ReserveActivity extends AppCompatActivity implements DatePickerDial
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                databaseError.getMessage();
             }
         });
     }
@@ -206,6 +218,7 @@ public class ReserveActivity extends AppCompatActivity implements DatePickerDial
         String numberOfPeople = editTextNumber.getText().toString().trim();
         String year = Year;
         String dayOfMonth = DayOfMonth;
+        String reservationTime = reserveTime.getText().toString().trim();
 
         if (TextUtils.isEmpty(numberOfPeople)) {
             Toast.makeText(this, "Please enter number of people", Toast.LENGTH_SHORT).show();
@@ -224,8 +237,14 @@ public class ReserveActivity extends AppCompatActivity implements DatePickerDial
             return;
         }
 
+        if (TextUtils.isEmpty(reservationTime)){
+            Toast.makeText(this, "Please enter Reservation time", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
+        assert user != null;
         Confirmation confirmation = new Confirmation(numberOfPeople, user.getUid());
 
         //must save under store uid
@@ -283,6 +302,20 @@ public class ReserveActivity extends AppCompatActivity implements DatePickerDial
 
         return realMonth;
     }
+
+//    @Override
+//    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//
+//        switch (position){
+//            case 0:
+//
+//                break;
+//            case 1:
+//                break;
+//            case 2:
+//                break;
+//        }
+//    }
 //    //Map //
 //    @Override
 //    public void onMapReady(GoogleMap googleMap) {

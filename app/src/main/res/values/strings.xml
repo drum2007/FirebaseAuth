@@ -40,11 +40,14 @@
     <string name="name">Name</string>
     <string name="user_s_profile_picture">User\'s Profile Picture</string>
     <string name="confirm">Confirm</string>
-    <string name="date_picker">Date picker</string>
-    <string name="number_of_people">number of people</string>
+    <string name="date_picker">Pick date</string>
+    <string name="number_of_people">Number of people</string>
     <string name="store_day">Day</string>
     <string name="store_time">Time</string>
     <string name="store_phone">Phone</string>
     <string name="store_address">address</string>
     <string name="store_about">about</string>
+    <string name="reserve_time">Reservation time</string>
+    <string name="amount">Amount</string>
+    <string name="time">Time</string>
 </resources>

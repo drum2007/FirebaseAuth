@@ -22,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
@@ -32,11 +33,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.File;
 import java.io.IOException;
 
 public class StoreEditProfileActivity extends AppCompatActivity implements View.OnClickListener {
@@ -65,7 +68,7 @@ public class StoreEditProfileActivity extends AppCompatActivity implements View.
     private FirebaseAuth firebaseAuth;
     private StorageReference storageReference;
 
-    private Uri filepath;
+    private Uri filepath, downloadUrl;
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
 
@@ -107,6 +110,7 @@ public class StoreEditProfileActivity extends AppCompatActivity implements View.
         btnChooseLocation = findViewById(R.id.btnChooseLocation);
         btnSaveInfo = findViewById(R.id.btnSaveInfo);
         btnLogout = findViewById(R.id.btnLogout);
+        assert user != null;
         tvStoreEmail.setText(String.format("Welcome %s", user.getEmail()));
 
         btnSaveInfo.setOnClickListener(this);
@@ -206,6 +210,7 @@ public class StoreEditProfileActivity extends AppCompatActivity implements View.
         super.onActivityResult(requestCode, resultCode, data);
 
         final FirebaseUser user = firebaseAuth.getCurrentUser();
+        assert user != null;
         final StorageReference storePicRef = FirebaseStorage.getInstance().getReference(user.getUid());
 
         storePicRef.child(user.getUid() + "/profile").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -260,6 +265,7 @@ public class StoreEditProfileActivity extends AppCompatActivity implements View.
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             progressDialog.dismiss();
+                            downloadUrl = taskSnapshot.getDownloadUrl();
                             Toast.makeText(getApplicationContext(), "File Uploaded", Toast.LENGTH_SHORT).show();
 
                         }
@@ -326,7 +332,7 @@ public class StoreEditProfileActivity extends AppCompatActivity implements View.
         }
 
         if (TextUtils.isEmpty(place) || TextUtils.isEmpty(address) ||TextUtils.isEmpty(latlng)) {
-            Toast.makeText(this, "Please select store's loacation", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please select store's location", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -335,6 +341,7 @@ public class StoreEditProfileActivity extends AppCompatActivity implements View.
 
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
+        assert user != null;
         databaseReference.child("Store").child(user.getUid()).child("StoreInfo").setValue(storeInformation);
 
         databaseReference.child("Store").child(user.getUid()).child("StoreInfo").child("BusinessDay").child("Sunday: ").setValue(arrayDay[0] + "");

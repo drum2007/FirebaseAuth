@@ -23,8 +23,9 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
 
     private ImageView imageView;
     private TextView tvStoreEmail,tvStoreName, tvStorePhoneNumber, tvStoreCap, tvAboutStore, openTime, closeTime;
-    private CheckBox sunday,monday,tuesday,wednesday,thursday,friday,saturday;
     private Button btnEditProfile, btnLogout;
+
+    private int[] arrayDay = {0, 0, 0, 0, 0, 0, 0};
 
     private DatabaseReference databaseReference;
     private FirebaseAuth firebaseAuth;
@@ -60,7 +61,8 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
         openTime = findViewById(R.id.openTime);
         closeTime = findViewById(R.id.closeTime);
 
-        tvStoreEmail.setText("Welcome " + user.getEmail());
+        assert user != null;
+        tvStoreEmail.setText(String.format("Welcome %s", user.getEmail()));
 
         btnEditProfile = findViewById(R.id.btnEditProfile);
         btnLogout = findViewById(R.id.btnLogout);
@@ -112,5 +114,63 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
         if (actionBarDrawerToggle.onOptionsItemSelected(item))
             return true;
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onCheckboxClicked(View view) {
+        // Is the view now checked?
+        boolean checked = ((CheckBox) view).isChecked();
+
+        // Check which checkbox was clicked
+        switch (view.getId()) {
+            case R.id.sunday:
+                if (checked) {
+                    arrayDay[0] = 1;
+                } else
+                    arrayDay[0] = 0;
+                break;
+
+            case R.id.monday:
+                if (checked) {
+                    arrayDay[1] = 1;
+                } else
+                    arrayDay[1] = 0;
+                break;
+
+            case R.id.tuesday:
+                if (checked) {
+                    arrayDay[2] = 1;
+                } else
+                    arrayDay[2] = 0;
+                break;
+
+            case R.id.wednesday:
+                if (checked) {
+                    arrayDay[3] = 1;
+                } else
+                    arrayDay[3] = 0;
+                break;
+
+            case R.id.thursday:
+                if (checked) {
+                    arrayDay[4] = 1;
+                } else
+                    arrayDay[4] = 0;
+                break;
+
+            case R.id.friday:
+                if (checked) {
+                    arrayDay[5] = 1;
+                } else
+                    arrayDay[5] = 0;
+                break;
+
+            case R.id.saturday:
+                if (checked) {
+                    arrayDay[6] = 1;
+                } else
+                    arrayDay[6] = 0;
+                break;
+        }
+
     }
 }
