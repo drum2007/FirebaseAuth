@@ -27,7 +27,7 @@
         android:id="@+id/editTextNumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="number of people"
+        android:hint="@string/number_of_people"
         android:inputType="number" />
 
     <LinearLayout
@@ -43,7 +43,7 @@
             android:layout_gravity="center"
             android:layout_weight="2"
             android:background="@color/green"
-            android:text="Date picker"
+            android:text="@string/date_picker"
             android:textColor="@color/white"/>
 
         <TextView
@@ -58,7 +58,7 @@
     </LinearLayout>
 
     <Button
-        android:text="Confirm"
+        android:text="@string/confirm"
         android:textColor="@color/white"
         android:id="@+id/btnConfirm"
         android:layout_width="wrap_content"
@@ -87,16 +87,16 @@
 
         <Button
             android:id="@+id/menuProfile"
-            android:text="Profile"
-            android:contentDescription="Profile"
+            android:text="@string/profile"
+            android:contentDescription="@string/profile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/green"
             />
         <Button
             android:id="@+id/menuSelectStore"
-            android:text="Select Store"
-            android:contentDescription="Select Store"
+            android:text="@string/select_store"
+            android:contentDescription="@string/select_store"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/green"/>

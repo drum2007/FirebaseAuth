@@ -89,12 +89,14 @@ public class ReserveActivity extends AppCompatActivity implements DatePickerDial
         btnConfirm = findViewById(R.id.btnConfirm);
         menuSelectStore = findViewById(R.id.menuSelectStore);
         tvStoreName = findViewById(R.id.tvStoreName);
-        imStore = findViewById(R.id.imStore);
-        tvStoreDay = findViewById(R.id.tvStoreDay);
-        tvStoreTime = findViewById(R.id.tvStoreTime);
-        tvStoreAddress = findViewById(R.id.tvStoreAddress);
-        tvStoreAbout = findViewById(R.id.tvStoreAbout);
-        tvStorePhone = findViewById(R.id.tvStorePhone);
+
+        //TODO: add whatever you need
+//        imStore = findViewById(R.id.imStore);
+//        tvStoreDay = findViewById(R.id.tvStoreDay);
+//        tvStoreTime = findViewById(R.id.tvStoreTime);
+//        tvStoreAddress = findViewById(R.id.tvStoreAddress);
+//        tvStoreAbout = findViewById(R.id.tvStoreAbout);
+//        tvStorePhone = findViewById(R.id.tvStorePhone);
 
         btnDate.setOnClickListener(this);
         btnConfirm.setOnClickListener(this);
