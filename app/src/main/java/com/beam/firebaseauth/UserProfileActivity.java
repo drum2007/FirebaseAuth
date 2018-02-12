@@ -80,7 +80,8 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
             startActivity(new Intent(this, LoginActivity.class));
         }
         if (v == menuProfile){
-
+            finish();
+            startActivity(new Intent(this, UserProfileActivity.class));
         }
         if (v == menuSelectStore){
             finish();

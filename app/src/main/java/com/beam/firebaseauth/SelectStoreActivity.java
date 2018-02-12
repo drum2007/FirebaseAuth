@@ -150,6 +150,8 @@ public class SelectStoreActivity extends AppCompatActivity implements View.OnCli
         }
         if (v == menuProfile){
             firebaseAuth = FirebaseAuth.getInstance();
+
+            //user
             Query userQuery = databaseReference.child("User").orderByKey().equalTo(firebaseAuth.getCurrentUser().getUid());
             userQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -164,6 +166,8 @@ public class SelectStoreActivity extends AppCompatActivity implements View.OnCli
                     databaseError.getMessage();
                 }
             });
+
+            //store
             Query storeQuery = databaseReference.child("Store").orderByKey().equalTo(firebaseAuth.getCurrentUser().getUid());
             storeQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
