@@ -14,15 +14,12 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_weight="2"
-                android:background="@color/green"
                 android:orientation="vertical">
 
                 <TextView
@@ -32,22 +29,82 @@
                     android:layout_gravity="center_horizontal"
                     android:text="@string/email" />
 
-                <EditText
-                    android:id="@+id/editTextName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="20dp"
-                    android:background="@color/white"
-                    android:hint="@string/full_name" />
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="160dp"
+                    android:layout_height="160dp"
+                    android:layout_gravity="center_horizontal"
+                    android:contentDescription="@string/store_s_profile_picture"
+                    android:src="@mipmap/defualtphotos" />
 
-                <EditText
-                    android:id="@+id/editTextPhoneNumber"
+                <Button
+                    android:id="@+id/btnChooseImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/choose_image" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="2"
+                android:background="@color/green"
+                android:orientation="vertical">
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="20dp"
-                    android:background="@color/white"
-                    android:hint="@string/phone_number"
-                    android:inputType="phone" />
+                    android:orientation="horizontal"
+                    android:weightSum="4">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="10dp"
+                        android:layout_weight="3"
+                        android:gravity="center_horizontal"
+                        android:text="@string/full_name"
+                        android:textSize="15sp" />
+
+                    <EditText
+                        android:id="@+id/editTextName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        android:layout_weight="1"
+                        android:background="@color/white"
+                        android:hint="@string/full_name" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="4">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="10dp"
+                        android:layout_weight="3"
+                        android:gravity="center_horizontal"
+                        android:text="@string/phone_number"
+                        android:textSize="15sp" />
+
+                    <EditText
+                        android:id="@+id/editTextPhoneNumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        android:layout_weight="1"
+                        android:background="@color/white"
+                        android:hint="@string/phone_number"
+                        android:inputType="phone" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -58,7 +115,7 @@
                 android:orientation="vertical">
 
                 <Button
-                    android:id="@+id/btnSaveInfo"
+                    android:id="@+id/btnEditProfile"
                     android:layout_width="160dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -94,16 +151,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/green"
-            android:contentDescription="Profile"
-            android:text="Profile" />
+            android:contentDescription="@string/profile"
+            android:text="@string/profile" />
 
         <Button
             android:id="@+id/menuSelectStore"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/green"
-            android:contentDescription="Select Store"
-            android:text="Select Store" />
+            android:contentDescription="@string/select_store"
+            android:text="@string/select_store" />
 
     </LinearLayout>
 </android.support.v4.widget.DrawerLayout>

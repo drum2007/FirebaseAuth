@@ -98,11 +98,11 @@
                 android:text="@string/register_for_store"
                 android:textColor="@color/white" />
 
-            <Button
-                android:id="@+id/btMap"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Map" />
+            <!--<Button-->
+            <!--android:id="@+id/btMap"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Map" />-->
         </LinearLayout>
 
     </ScrollView>
