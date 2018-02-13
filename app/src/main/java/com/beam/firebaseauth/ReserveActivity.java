@@ -44,9 +44,10 @@ import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Map;
 
-public class ReserveActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, View.OnClickListener{//, AdapterView.OnItemClickListener { //OnMapReadyCallback
+public class ReserveActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, View.OnClickListener {//, AdapterView.OnItemClickListener { //OnMapReadyCallback
 
-    private static final String[]paths = {"item1", "item2", "item3"};
+    private static final String[] paths = {"item1", "item2", "item3"};
+    private int checkState = 0;
 
     private EditText editTextNumber, reserveTime;
     private Button btnDate;
@@ -206,6 +207,10 @@ public class ReserveActivity extends AppCompatActivity implements DatePickerDial
         }
         if (v == btnConfirm) {
             saveConfirmation();
+            if (checkState == 1) {
+                startActivity(new Intent(this, UserProfileActivity.class));
+            }
+
         }
         if (v == menuSelectStore) {
             startActivity(new Intent(this, SelectStoreActivity.class));
@@ -213,12 +218,17 @@ public class ReserveActivity extends AppCompatActivity implements DatePickerDial
     }
 
 
-    //must get store uid from selectstoreactivity to reserve under it
     private void saveConfirmation() {
         String numberOfPeople = editTextNumber.getText().toString().trim();
         String year = Year;
         String dayOfMonth = DayOfMonth;
         String reservationTime = reserveTime.getText().toString().trim();
+
+        String storeID = getIntent().getStringExtra("id");
+
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        assert user != null;
+        String userID = user.getUid();
 
         if (TextUtils.isEmpty(numberOfPeople)) {
             Toast.makeText(this, "Please enter number of people", Toast.LENGTH_SHORT).show();
@@ -237,21 +247,25 @@ public class ReserveActivity extends AppCompatActivity implements DatePickerDial
             return;
         }
 
-        if (TextUtils.isEmpty(reservationTime)){
+        if (TextUtils.isEmpty(reservationTime)) {
             Toast.makeText(this, "Please enter Reservation time", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        FirebaseUser user = firebaseAuth.getCurrentUser();
+        Confirmation confirmForStore = new Confirmation(numberOfPeople, userID, reservationTime);
+        Confirmation confirmForUser = new Confirmation(numberOfPeople, storeID, reservationTime);
 
-        assert user != null;
-        Confirmation confirmation = new Confirmation(numberOfPeople, user.getUid());
+        //save info for store
+        databaseReference.child("Store").child(storeID).child("ReserveInfo")
+                .child("Year: " + year).child("Month: " + month).child("Date: " + dayOfMonth).setValue(confirmForStore);
 
-        //must save under store uid
-        databaseReference.child("Store").child("zWbUSFxT8HYu4ClL0jAj2C2v4dC2").child("ReserveInfo")
-                .child("Year: " + year).child("Month: " + month).child("Date: " + dayOfMonth).setValue(confirmation);
+        //save info for user
+        databaseReference.child("User").child(userID).child("ReserveInfo")
+                .child("Year: " + year).child("Month: " + month).child("Date: " + dayOfMonth).setValue(confirmForUser);
 
         Toast.makeText(this, "Reservation Saved", Toast.LENGTH_SHORT).show();
+
+        checkState = 1;
 
     }
 

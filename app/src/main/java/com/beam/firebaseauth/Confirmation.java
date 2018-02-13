@@ -11,11 +11,15 @@ public class Confirmation {
     public String month;
     public String dayOfMonth;
     public String userID;
+    public String reservTime;
 
-    public Confirmation(String numberOfPeople, String userID) {
+    public Confirmation(String numberOfPeople, String userID, String time) {
         this.numberOfPeople = numberOfPeople;
         this.userID = userID;
+        this.reservTime = time;
     }
+
+
 
     public Confirmation(String numberOfPeople, String year, String month, String dayOfMonth) {
         this.numberOfPeople = numberOfPeople;

@@ -138,6 +138,8 @@ public class UserEditProfileActivity extends AppCompatActivity implements View.O
 
         if (v == btnSaveInfo) {
             saveUserInformation();
+            finish();
+            startActivity(new Intent(this, SelectStoreActivity.class));
         }
         if (v == menuSelectStore) {
             startActivity(new Intent(this, SelectStoreActivity.class));
