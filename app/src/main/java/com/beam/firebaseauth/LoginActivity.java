@@ -52,7 +52,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         setTitle("Login");
 
-        initInstance();
+        //initInstance();
 
         firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
@@ -75,36 +75,36 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
      //   btMap.setOnClickListener(this);
     }
 
-    private void initInstance() {
-        drawerLayout = findViewById(R.id.drawerLayout);
-        actionBarDrawerToggle = new ActionBarDrawerToggle(
-                LoginActivity.this,
-                drawerLayout,
-                R.string.open_drawer,
-                R.string.close_drawer
-        );
-        drawerLayout.addDrawerListener(actionBarDrawerToggle);
-
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    }
-
-    @Override
-    public void onPostCreate(@Nullable Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        actionBarDrawerToggle.syncState();
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        actionBarDrawerToggle.onConfigurationChanged(newConfig);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
-    }
+//    private void initInstance() {
+//        drawerLayout = findViewById(R.id.drawerLayout);
+//        actionBarDrawerToggle = new ActionBarDrawerToggle(
+//                LoginActivity.this,
+//                drawerLayout,
+//                R.string.open_drawer,
+//                R.string.close_drawer
+//        );
+//        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+//
+//        getSupportActionBar().setHomeButtonEnabled(true);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//    }
+//
+//    @Override
+//    public void onPostCreate(@Nullable Bundle savedInstanceState) {
+//        super.onPostCreate(savedInstanceState);
+//        actionBarDrawerToggle.syncState();
+//    }
+//
+//    @Override
+//    public void onConfigurationChanged(Configuration newConfig) {
+//        super.onConfigurationChanged(newConfig);
+//        actionBarDrawerToggle.onConfigurationChanged(newConfig);
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        return actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
+//    }
 
     @Override
     public void onClick(View v) {
@@ -117,9 +117,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (v == btnStoreSignUp) {
             startActivity(new Intent(this, StoreRegistActivity.class));
         }
-        if (v == menuSelectStore) {
-            startActivity(new Intent(this, SelectStoreActivity.class));
-        }
+
 //        if (v == btMap) {
 //            startActivity(new Intent(this, MapsActivity.class));
 //        }

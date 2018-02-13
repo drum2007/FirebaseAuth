@@ -29,6 +29,7 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
     private TextView tvUserName, reserveDate, reserveTime, number;
     private TextView tvStoreEmail, tvStoreName, tvStorePhoneNumber, tvStoreCap, tvAboutStore, openTime, closeTime;
     private Button btnEditProfile, btnLogout;
+    private Button menuSelectStore;
 
     private int[] arrayDay = {0, 0, 0, 0, 0, 0, 0};
 
@@ -153,21 +154,25 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
             finish();
             startActivity(new Intent(this, LoginActivity.class));
         }
+//        if (v == menuSelectStore) {
+//            startActivity(new Intent(this, SelectStoreActivity.class));
+//        }
     }
 
     private void initInstance() {
-        drawerLayout = findViewById(R.id.drawerLayout);
-        actionBarDrawerToggle = new ActionBarDrawerToggle(
-                StoreProfileActivity.this,
-                drawerLayout,
-                R.string.open_drawer,
-                R.string.close_drawer
-        );
-        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+//        drawerLayout = findViewById(R.id.drawerLayout);
+//        actionBarDrawerToggle = new ActionBarDrawerToggle(
+//                StoreProfileActivity.this,
+//                drawerLayout,
+//                R.string.open_drawer,
+//                R.string.close_drawer
+//        );
+//        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+//
+//        getSupportActionBar().setHomeButtonEnabled(true);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        menuSelectStore = findViewById(R.id.menuSelectStore);
         imageView = findViewById(R.id.imageView);
         tvStoreEmail = findViewById(R.id.tvStoreEmail);
         tvStoreName = findViewById(R.id.tvStoreName);
@@ -182,24 +187,24 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
         number = findViewById(R.id.number);
     }
 
-    @Override
-    public void onPostCreate(@Nullable Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        actionBarDrawerToggle.syncState();
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        actionBarDrawerToggle.onConfigurationChanged(newConfig);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (actionBarDrawerToggle.onOptionsItemSelected(item))
-            return true;
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public void onPostCreate(@Nullable Bundle savedInstanceState) {
+//        super.onPostCreate(savedInstanceState);
+//        actionBarDrawerToggle.syncState();
+//    }
+//
+//    @Override
+//    public void onConfigurationChanged(Configuration newConfig) {
+//        super.onConfigurationChanged(newConfig);
+//        actionBarDrawerToggle.onConfigurationChanged(newConfig);
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        if (actionBarDrawerToggle.onOptionsItemSelected(item))
+//            return true;
+//        return super.onOptionsItemSelected(item);
+//    }
 
     public void onCheckboxClicked(View view) {
         // Is the view now checked?

@@ -54,6 +54,7 @@ public class ReserveActivity extends AppCompatActivity implements DatePickerDial
     private TextView tvDate;
     private Button btnConfirm;
     private Button menuSelectStore;
+    private Button menuProfile;
 
     private ImageView imStore;
     private TextView tvStoreName;
@@ -94,6 +95,7 @@ public class ReserveActivity extends AppCompatActivity implements DatePickerDial
         tvDate = findViewById(R.id.tvDate);
         btnConfirm = findViewById(R.id.btnConfirm);
         menuSelectStore = findViewById(R.id.menuSelectStore);
+        menuProfile = findViewById(R.id.menuProfile);
         tvStoreName = findViewById(R.id.tvStoreName);
         reserveTime = findViewById(R.id.reserveTime);
 
@@ -114,6 +116,7 @@ public class ReserveActivity extends AppCompatActivity implements DatePickerDial
         //spinner.setOnItemClickListener(this);
         btnConfirm.setOnClickListener(this);
         menuSelectStore.setOnClickListener(this);
+        menuProfile.setOnClickListener(this);
 
 //        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
 //                .findFragmentById(R.id.map);
@@ -211,6 +214,40 @@ public class ReserveActivity extends AppCompatActivity implements DatePickerDial
                 startActivity(new Intent(this, UserProfileActivity.class));
             }
 
+        }
+        if (v == menuProfile) {
+            Query userQuery = databaseReference.child("User").orderByKey().equalTo(firebaseAuth.getCurrentUser().getUid());
+            userQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.getValue() != null) {
+                        finish();
+                        startActivity(new Intent(getApplicationContext(), UserProfileActivity.class));
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    databaseError.getMessage();
+                }
+            });
+            Query storeQuery = databaseReference.child("Store").orderByKey().equalTo(firebaseAuth.getCurrentUser().getUid());
+            storeQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.getValue() != null) {
+                        finish();
+                        startActivity(new Intent(getApplicationContext(), StoreProfileActivity.class));
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    databaseError.getMessage();
+                }
+            });
+        } else {
+            Toast.makeText(getApplicationContext(), "Could not sign in, please check your username and password", Toast.LENGTH_LONG).show();
         }
         if (v == menuSelectStore) {
             startActivity(new Intent(this, SelectStoreActivity.class));
