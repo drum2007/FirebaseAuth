@@ -57,7 +57,7 @@
                         android:layout_height="match_parent"
                         android:layout_margin="10dp"
                         android:layout_weight="3"
-                        android:gravity="center_horizontal"
+                        android:gravity="center"
                         android:text="@string/full_name"
                         android:textSize="15sp" />
 
@@ -123,6 +123,81 @@
                     android:text="@string/logout"
                     android:textColor="@color/white" />
             </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/border_linegreen">
+
+                <ImageView
+                    android:id="@+id/image"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layout_margin="3dp"
+                    android:background="@drawable/border_linewhite"
+                    android:src="@mipmap/defualtphotos" />
+
+                <TextView
+                    android:id="@+id/tvStoreName"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:layout_toEndOf="@id/image"
+                    android:text="@string/store_name" />
+
+                <LinearLayout
+                    android:id="@+id/LinearLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/tvStoreName"
+                    android:layout_toEndOf="@id/image"
+                    android:orientation="horizontal"
+                    android:weightSum="12">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_weight="1"
+                        android:src="@mipmap/Calendar_icon" />
+
+                    <TextView
+                        android:id="@+id/reserveDate"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:text="@string/reserve_date" />
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_weight="1"
+                        android:src="@mipmap/clock_icon" />
+
+                    <TextView
+                        android:id="@+id/reserveTime"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:text="@string/reserve_time" />
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_weight="1"
+                        android:src="@mipmap/human_icon" />
+
+                    <TextView
+                        android:id="@+id/number"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:text="@string/number_of_people" />
+
+
+                </LinearLayout>
+
+            </RelativeLayout>
 
         </LinearLayout>
     </ScrollView>

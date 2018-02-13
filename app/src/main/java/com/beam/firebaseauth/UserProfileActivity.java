@@ -14,8 +14,12 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 public class UserProfileActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -52,16 +56,27 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
 
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
-        tvUserEmail = findViewById(R.id.tvUserEmail);
-        tvUserName = findViewById(R.id.tvUserName);
-        tvUserPhoneNumber = findViewById(R.id.tvUserPhoneNumber);
+        assert user != null;
+        tvUserEmail.setText(String.format("Welcome %s", user.getEmail()));
 
-        btnEditProfile = findViewById(R.id.btnEditProfile);
-        btnLogout = findViewById(R.id.btnLogout);
-        menuProfile = findViewById(R.id.menuProfile);
-        menuSelectStore = findViewById(R.id.menuSelectStore);
+        Query userQuery = databaseReference.child("User").child(user.getUid());
+        userQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    String userName = dataSnapshot.child("name").getValue(String.class);
+                    String phoneNumber = dataSnapshot.child("phoneNumber").getValue(String.class);
 
-        tvUserEmail.setText("Welcome " + user.getEmail());
+                    tvUserName.setText(userName);
+                    tvUserPhoneNumber.setText(phoneNumber);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                databaseError.getMessage();
+            }
+        });
 
         btnEditProfile.setOnClickListener(this);
         btnLogout.setOnClickListener(this);
@@ -71,19 +86,19 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void onClick(View v) {
-        if (v == btnEditProfile){
+        if (v == btnEditProfile) {
             startActivity(new Intent(this, UserEditProfileActivity.class));
         }
-        if (v == btnLogout){
+        if (v == btnLogout) {
             firebaseAuth.signOut();
             finish();
             startActivity(new Intent(this, LoginActivity.class));
         }
-        if (v == menuProfile){
+        if (v == menuProfile) {
             finish();
             startActivity(new Intent(this, UserProfileActivity.class));
         }
-        if (v == menuSelectStore){
+        if (v == menuSelectStore) {
             finish();
             startActivity(new Intent(this, SelectStoreActivity.class));
         }
@@ -98,6 +113,16 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
                 R.string.close_drawer
         );
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
+
+        tvUserEmail = findViewById(R.id.tvUserEmail);
+        tvUserName = findViewById(R.id.tvUserName);
+        tvUserPhoneNumber = findViewById(R.id.tvUserPhoneNumber);
+
+        btnEditProfile = findViewById(R.id.btnEditProfile);
+        btnLogout = findViewById(R.id.btnLogout);
+        menuProfile = findViewById(R.id.menuProfile);
+        menuSelectStore = findViewById(R.id.menuSelectStore);
+
 
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

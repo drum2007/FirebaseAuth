@@ -47,7 +47,9 @@
     <string name="store_phone">Phone</string>
     <string name="store_address">address</string>
     <string name="store_about">about</string>
-    <string name="reserve_time">Reservation time</string>
+    <string name="reserve_time">Reserve time</string>
     <string name="amount">Amount</string>
     <string name="time">Time</string>
+    <string name="reserve_date">Reserve date</string>
+    <string name="user_name">user name</string>
 </resources>
