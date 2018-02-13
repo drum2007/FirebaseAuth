@@ -1,6 +1,6 @@
 package com.beam.firebaseauth;
 
-import android.app.Application;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.annotation.Nullable;
@@ -10,17 +10,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.BaseAdapter;
-import android.widget.Adapter;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.view.ViewGroup;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,17 +22,24 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-
 public class SelectStoreActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button bt1;
     private Button bt2;
-    //    private Button bt3;
-    private ImageView im2;
-    private TextView tv2name;
-    private TextView tv2day;
-    private TextView tv2place;
+    private ImageView imStore;
+    private TextView tvStoreName;
+    private TextView tvStoreDay;
+    private TextView tvStoreTime;
+    private TextView tvStorePhone;
+    private TextView tvStoreAddress;
+    private TextView tvStoreAbout;
+    private ImageView imStore2;
+    private TextView tvStoreName2;
+    private TextView tvStoreDay2;
+    private TextView tvStoreTime2;
+    private TextView tvStorePhone2;
+    private TextView tvStoreAddress2;
+    private TextView tvStoreAbout2;
 
     private Button menuSelectStore;
     private Button menuProfile;
@@ -56,33 +57,105 @@ public class SelectStoreActivity extends AppCompatActivity implements View.OnCli
         setTitle("SelectStore");
         initInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
+        bt2 = findViewById(R.id.bt2);
+        bt1 = findViewById(R.id.bt1);
+        imStore = findViewById(R.id.imStore);
+        imStore2 = findViewById(R.id.imStore2);
+        tvStoreName = findViewById(R.id.tvStoreName);
+        tvStoreName2 = findViewById(R.id.tvStoreName2);
+        tvStoreDay = findViewById(R.id.tvStoreDay);
+        tvStoreDay2 = findViewById(R.id.tvStoreDay2);
+        tvStoreTime = findViewById(R.id.tvStoreTime);
+        tvStoreTime2 = findViewById(R.id.tvStoreTime2);
+        tvStorePhone = findViewById(R.id.tvStorePhone);
+        tvStorePhone2 = findViewById(R.id.tvStorePhone2);
+        tvStoreAddress = findViewById(R.id.tvStoreAddress);
+        tvStoreAddress2 = findViewById(R.id.tvStoreAddress2);
+        tvStoreAbout = findViewById(R.id.tvStoreAbout);
+        tvStoreAbout2 = findViewById(R.id.tvStoreAbout2);
         menuSelectStore = findViewById(R.id.menuSelectStore);
         menuProfile = findViewById(R.id.menuProfile);
+        bt1.setOnClickListener(this);
+        bt2.setOnClickListener(this);
         menuProfile.setOnClickListener(this);
         menuSelectStore.setOnClickListener(this);
+        setStore("ocyRIrdctWYl5sib2xNyHVt7cMK2", imStore, tvStoreName, tvStoreDay, tvStoreTime, tvStoreAddress, tvStoreAbout, tvStorePhone);
     }
 
+
     //Set store//
-    private void setStore(String storeID, ImageView image, final TextView name, final TextView day, TextView place) {
-        Query storeQuery = databaseReference.child("Store").child(storeID).child("StoreInfo");
+    private void setStore(final String storeID, ImageView image, final TextView name, final TextView day, final TextView time,
+                          final TextView address, final TextView about, final TextView phone) {
+        final Query storeQuery = databaseReference.child("Store").child(storeID).child("StoreInfo");
         storeQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
+                    name.setText("Name" + dataSnapshot.child("storeName").getValue(String.class));
+                    time.setText("Time" + dataSnapshot.child("openTime").getValue(String.class) + " - " + dataSnapshot.child("closeTime").getValue(String.class));
+                    address.setText("Address : " + dataSnapshot.child("address").getValue(String.class));
+                    phone.setText("Phone : " + dataSnapshot.child("phoneNumber").getValue(String.class));
+                    about.setText("About : " + dataSnapshot.child("aboutStore").getValue(String.class));
 
-                    name.setText(dataSnapshot.child("storeName").getValue(String.class));
-                    day.setText(dataSnapshot.child("openTime").getValue(String.class) + " - " + dataSnapshot.child("closeTime").getValue(String.class));
+//                    Query busidayQuery = databaseReference.child("Store").child(storeID).child("StoreInfo").child("BusinessDay");
+//                    busidayQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(DataSnapshot dataSnapshot) {
+//                            if (dataSnapshot.exists()) {
+//                                String fri = "";
+//                                String mon = "";
+//                                String Sat = "";
+//                                String Sun = "";
+//                                String Wed = "";
+//                                String Thur = "";
+//                                String Tues = "";
+//                                if (dataSnapshot.child("Friday").getValue(String.class).equals("1")) {
+//                                    fri = " Fr";
+//                                }
+//                                if (dataSnapshot.child("Monday").getValue(String.class).equals("1")) {
+//                                    mon = " M";
+//                                }
+//                                if (dataSnapshot.child("Saturday").getValue(String.class).equals("1")) {
+//                                    Sat = " Sa";
+//                                }
+//                                if (dataSnapshot.child("Sunday").getValue(String.class).equals("1")) {
+//                                    Sun = " Su";
+//                                }
+//                                if (dataSnapshot.child("Thursday").getValue(String.class).equals("1")) {
+//                                    Thur = " Th";
+//                                }
+//                                if (dataSnapshot.child("Tuesday").getValue(String.class).equals("1")) {
+//                                    Tues = " Tu";
+//                                }
+//                                if (dataSnapshot.child("Wednesday").getValue(String.class).equals("1")) {
+//                                    Wed = " We";
+//                                }
+//                                String sday = ("Day :" + Sun + mon + Tues + Wed + Thur + fri + Sat);
+//                                day.setText(sday);
+//                            }
+//                        }
+//
+//                        @Override
+//                        public void onCancelled(DatabaseError databaseError) {
+//
+//                        }
+//                    });
                 }
+
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
+
         });
     }
 
+
     //menubar
+
     private void initInstance() {
         drawerLayout = findViewById(R.id.drawerLayout);
         actionBarDrawerToggle = new ActionBarDrawerToggle(
@@ -121,18 +194,9 @@ public class SelectStoreActivity extends AppCompatActivity implements View.OnCli
     public void onClick(View v) {
 
         if (v == bt1) {
-            Query storeQuery = databaseReference.child("Store").orderByChild("closeTime");
-            storeQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    System.out.println(dataSnapshot.getValue());
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
+            Intent intent = new Intent(this, ReserveActivity.class);
+            intent.putExtra("id", "ocyRIrdctWYl5sib2xNyHVt7cMK2");
+            startActivity(intent);
         }
         if (v == bt2) {
             Intent intent = new Intent(this, ReserveActivity.class);
