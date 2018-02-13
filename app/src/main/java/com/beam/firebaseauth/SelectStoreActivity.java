@@ -49,28 +49,17 @@ public class SelectStoreActivity extends AppCompatActivity implements View.OnCli
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle actionBarDrawerToggle;
 
-    ListView listview;
-    ArrayList<String> list = new ArrayList<>();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_store);
         setTitle("SelectStore");
-
         initInstance();
-
         databaseReference = FirebaseDatabase.getInstance().getReference();
-
-
         menuSelectStore = findViewById(R.id.menuSelectStore);
         menuProfile = findViewById(R.id.menuProfile);
         menuProfile.setOnClickListener(this);
         menuSelectStore.setOnClickListener(this);
-
-        listview = findViewById(R.id.listview);
-        DatabaseReference storeRef = databaseReference.child("Store");
-        ArrayAdapter mAdapter = new FirebaseListView<StoreInformation>(this, StoreInformation.class, R.layout.listview_store, listview);
     }
 
     //Set store//
