@@ -10,13 +10,13 @@ public class Confirmation {
     public String year;
     public String month;
     public String dayOfMonth;
-    public String userID;
-    public String reservTime;
+    public String ID;
+    public String reserveTime;
 
     public Confirmation(String numberOfPeople, String userID, String time) {
         this.numberOfPeople = numberOfPeople;
-        this.userID = userID;
-        this.reservTime = time;
+        this.ID = userID;
+        this.reserveTime = time;
     }
 
 

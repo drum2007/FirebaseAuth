@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,6 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class UserProfileActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private TextView tvStoreName, reserveDate, reserveTime, number;
     private TextView tvUserEmail;
     private TextView tvUserName;
     private TextView tvUserPhoneNumber;
@@ -31,11 +33,15 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
     private Button menuProfile;
     private Button menuSelectStore;
 
+    private ImageView image;
+
     private DatabaseReference databaseReference;
     private FirebaseAuth firebaseAuth;
 
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle actionBarDrawerToggle;
+
+    private String store;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,10 +84,59 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
             }
         });
 
+        reserveInfo();
+
         btnEditProfile.setOnClickListener(this);
         btnLogout.setOnClickListener(this);
         menuProfile.setOnClickListener(this);
         menuSelectStore.setOnClickListener(this);
+    }
+
+    private void reserveInfo() {
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+
+        assert user != null;
+        Query reserveInfo = databaseReference.child("User").child(user.getUid()).child("ReserveInfo")
+                .child("Year: 2018").child("Month: February").child("Date: 14");
+        System.out.println("aaaaaaaaaaa");
+        reserveInfo.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    String storeID = dataSnapshot.child("ID").getValue(String.class);
+                    String numberOfPeople = dataSnapshot.child("numberOfPeople").getValue(String.class);
+                    String reservetime = dataSnapshot.child("reserveTime").getValue(String.class);
+                    System.out.println("BBBBBBBBB");
+                    number.setText(numberOfPeople);
+                    reserveTime.setText(reservetime);
+                    reserveDate.setText("Date: 14");
+
+                    //store = storeID;
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                databaseError.getMessage();
+            }
+        });
+
+        System.out.println("sssssssssss");
+        System.out.println(store);
+//        Query checkStore = databaseReference.child("Store").orderByKey().equalTo(store);
+//        checkStore.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                String storeName = dataSnapshot.child("StoreInfo").child("storeName").getValue(String.class);
+//                tvStoreName.setText(storeName);
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
+
     }
 
     @Override
@@ -117,6 +172,11 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
         tvUserEmail = findViewById(R.id.tvUserEmail);
         tvUserName = findViewById(R.id.tvUserName);
         tvUserPhoneNumber = findViewById(R.id.tvUserPhoneNumber);
+        tvStoreName = findViewById(R.id.tvStoreName);
+        reserveDate = findViewById(R.id.reserveDate);
+        reserveTime = findViewById(R.id.reserveTime);
+        number = findViewById(R.id.number);
+
 
         btnEditProfile = findViewById(R.id.btnEditProfile);
         btnLogout = findViewById(R.id.btnLogout);

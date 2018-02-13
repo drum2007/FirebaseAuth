@@ -20,7 +20,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                tools:ignore="UseCompoundDrawables">
 
                 <TextView
                     android:id="@+id/tvUserEmail"
@@ -136,7 +137,8 @@
                     android:layout_height="75dp"
                     android:layout_margin="3dp"
                     android:background="@drawable/border_linewhite"
-                    android:src="@mipmap/defualtphotos" />
+                    android:src="@mipmap/defualtphotos"
+                    tools:ignore="ContentDescription" />
 
                 <TextView
                     android:id="@+id/tvStoreName"
@@ -159,7 +161,8 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_weight="1"
-                        android:src="@mipmap/Calendar_icon" />
+                        android:src="@mipmap/calendar_icon"
+                        tools:ignore="ContentDescription" />
 
                     <TextView
                         android:id="@+id/reserveDate"
@@ -172,7 +175,8 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_weight="1"
-                        android:src="@mipmap/clock_icon" />
+                        android:src="@mipmap/clock_icon"
+                        tools:ignore="ContentDescription" />
 
                     <TextView
                         android:id="@+id/reserveTime"
@@ -185,7 +189,8 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_weight="1"
-                        android:src="@mipmap/human_icon" />
+                        android:src="@mipmap/human_icon"
+                        tools:ignore="ContentDescription" />
 
                     <TextView
                         android:id="@+id/number"
