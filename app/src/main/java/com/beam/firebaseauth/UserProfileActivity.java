@@ -98,15 +98,15 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
         assert user != null;
         Query reserveInfo = databaseReference.child("User").child(user.getUid()).child("ReserveInfo")
                 .child("Year: 2018").child("Month: February").child("Date: 14");
-        System.out.println("aaaaaaaaaaa");
-        reserveInfo.addValueEventListener(new ValueEventListener() {
+
+        reserveInfo.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     String storeID = dataSnapshot.child("ID").getValue(String.class);
                     String numberOfPeople = dataSnapshot.child("numberOfPeople").getValue(String.class);
                     String reservetime = dataSnapshot.child("reserveTime").getValue(String.class);
-                    System.out.println("BBBBBBBBB");
+
                     number.setText(numberOfPeople);
                     reserveTime.setText(reservetime);
                     reserveDate.setText("Date: 14");
@@ -121,8 +121,7 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
             }
         });
 
-        System.out.println("sssssssssss");
-        System.out.println(store);
+
 //        Query checkStore = databaseReference.child("Store").orderByKey().equalTo(store);
 //        checkStore.addListenerForSingleValueEvent(new ValueEventListener() {
 //            @Override

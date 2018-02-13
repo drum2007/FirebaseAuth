@@ -16,13 +16,18 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 public class StoreProfileActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ImageView imageView;
-    private TextView tvStoreEmail,tvStoreName, tvStorePhoneNumber, tvStoreCap, tvAboutStore, openTime, closeTime;
+    private TextView tvUserName, reserveDate, reserveTime, number;
+    private TextView tvStoreEmail, tvStoreName, tvStorePhoneNumber, tvStoreCap, tvAboutStore, openTime, closeTime;
     private Button btnEditProfile, btnLogout;
 
     private int[] arrayDay = {0, 0, 0, 0, 0, 0, 0};
@@ -52,17 +57,38 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
 
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
-        imageView = findViewById(R.id.imageView);
-        tvStoreEmail = findViewById(R.id.tvStoreEmail);
-        tvStoreName = findViewById(R.id.tvStoreName);
-        tvStorePhoneNumber = findViewById(R.id.tvStorePhoneNumber);
-        tvStoreCap = findViewById(R.id.tvStoreCap);
-        tvAboutStore = findViewById(R.id.tvAboutStore);
-        openTime = findViewById(R.id.openTime);
-        closeTime = findViewById(R.id.closeTime);
 
         assert user != null;
         tvStoreEmail.setText(String.format("Welcome %s", user.getEmail()));
+
+        Query userQuery = databaseReference.child("Store").child(user.getUid());
+        userQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    String storeName = dataSnapshot.child("StoreInfo").child("storeName").getValue(String.class);
+                    String phoneNumber = dataSnapshot.child("StoreInfo").child("phoneNumber").getValue(String.class);
+                    String capacity = dataSnapshot.child("StoreInfo").child("capacity").getValue(String.class);
+                    String aboutStore = dataSnapshot.child("StoreInfo").child("aboutStore").getValue(String.class);
+                    String open = dataSnapshot.child("StoreInfo").child("openTime").getValue(String.class);
+                    String close = dataSnapshot.child("StoreInfo").child("closeTime").getValue(String.class);
+
+                    tvStoreName.setText(storeName);
+                    tvStorePhoneNumber.setText(phoneNumber);
+                    tvStoreCap.setText(capacity);
+                    tvAboutStore.setText(aboutStore);
+                    openTime.setText(open);
+                    closeTime.setText(close);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                databaseError.getMessage();
+            }
+        });
+
+        reserveInfo();
 
         btnEditProfile = findViewById(R.id.btnEditProfile);
         btnLogout = findViewById(R.id.btnLogout);
@@ -71,12 +97,58 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
         btnLogout.setOnClickListener(this);
     }
 
+    private void reserveInfo() {
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+
+        assert user != null;
+        Query reserveInfo = databaseReference.child("Store").child(user.getUid()).child("ReserveInfo")
+                .child("Year: 2018").child("Month: February").child("Date: 14");
+
+        reserveInfo.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    String userID = dataSnapshot.child("ID").getValue(String.class);
+                    String numberOfPeople = dataSnapshot.child("numberOfPeople").getValue(String.class);
+                    String reservetime = dataSnapshot.child("reserveTime").getValue(String.class);
+
+                    number.setText(numberOfPeople);
+                    reserveTime.setText(reservetime);
+                    reserveDate.setText("Date: 14");
+
+                    //store = storeID;
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                databaseError.getMessage();
+            }
+        });
+
+
+//        Query checkStore = databaseReference.child("Store").orderByKey().equalTo(store);
+//        checkStore.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                String storeName = dataSnapshot.child("StoreInfo").child("storeName").getValue(String.class);
+//                tvStoreName.setText(storeName);
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
+
+    }
+
     @Override
     public void onClick(View v) {
-        if (v == btnEditProfile){
+        if (v == btnEditProfile) {
             startActivity(new Intent(this, StoreEditProfileActivity.class));
         }
-        if (v == btnLogout){
+        if (v == btnLogout) {
             firebaseAuth.signOut();
             finish();
             startActivity(new Intent(this, LoginActivity.class));
@@ -95,6 +167,19 @@ public class StoreProfileActivity extends AppCompatActivity implements View.OnCl
 
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        imageView = findViewById(R.id.imageView);
+        tvStoreEmail = findViewById(R.id.tvStoreEmail);
+        tvStoreName = findViewById(R.id.tvStoreName);
+        tvStorePhoneNumber = findViewById(R.id.tvStorePhoneNumber);
+        tvStoreCap = findViewById(R.id.tvStoreCap);
+        tvAboutStore = findViewById(R.id.tvAboutStore);
+        openTime = findViewById(R.id.openTime);
+        closeTime = findViewById(R.id.closeTime);
+        tvUserName = findViewById(R.id.tvUserName);
+        reserveDate = findViewById(R.id.reserveDate);
+        reserveTime = findViewById(R.id.reserveTime);
+        number = findViewById(R.id.number);
     }
 
     @Override
