@@ -62,7 +62,8 @@ public class UserEditProfileActivity extends AppCompatActivity implements View.O
         btnLogout = findViewById(R.id.btnLogout);
         menuSelectStore = findViewById(R.id.menuSelectStore);
 
-        tvUserEmail.setText("Welcome " + user.getEmail());
+        assert user != null;
+        tvUserEmail.setText(String.format("Welcome %s", user.getEmail()));
 
         btnSaveInfo.setOnClickListener(this);
         btnLogout.setOnClickListener(this);

@@ -42,6 +42,8 @@ import com.google.firebase.storage.UploadTask;
 import java.io.File;
 import java.io.IOException;
 
+import javax.microedition.khronos.opengles.GL;
+
 public class StoreEditProfileActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final int PLACE_PICKER_REQUEST = 1;
@@ -58,7 +60,7 @@ public class StoreEditProfileActivity extends AppCompatActivity implements View.
     private TextView tvAddress;
     private TextView tvLatlng;
     private Button btnLogout;
-    private Button menuSelectStore;
+    private Button menuSelectStore, menuProfile;
     private Button btnChooseImage;
     private Button btnChooseLocation;
     private ImageView imageView;
@@ -93,29 +95,20 @@ public class StoreEditProfileActivity extends AppCompatActivity implements View.
 
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
-        tvAddress = findViewById(R.id.tvAddress);
-        tvLatlng = findViewById(R.id.tvLatlng);
-        tvPlace = findViewById(R.id.tvPlace);
-        tvStoreEmail = findViewById(R.id.tvStoreEmail);
-        editTextName = findViewById(R.id.editTextName);
-        editTextPhoneNumber = findViewById(R.id.editTextPhoneNumber);
-        openTime = findViewById(R.id.openTime);
-        closeTime = findViewById(R.id.closeTime);
-        storeCapacity = findViewById(R.id.storeCapacity);
-        aboutStore = findViewById(R.id.editTextAboutStore);
-        menuSelectStore = findViewById(R.id.menuSelectStore);
-        imageView = findViewById(R.id.imageView);
 
-        btnChooseImage = findViewById(R.id.btnChooseImage);
-        btnChooseLocation = findViewById(R.id.btnChooseLocation);
-        btnSaveInfo = findViewById(R.id.btnSaveInfo);
-        btnLogout = findViewById(R.id.btnLogout);
         assert user != null;
         tvStoreEmail.setText(String.format("Welcome %s", user.getEmail()));
+
+//        String url = "https://firebasestorage.googleapis.com/v0/b/fir-auth-1d7cd.appspot.com/o/2XHfcqzJKOaXQ2yd5OuomM60ek33%2Fprofile.jpg?alt=media&token=8720c2b4-9b3d-4a90-9493-de3ee9ea39b6";
+//
+//        Glide.with(getApplicationContext()).load(url).into(imageView);
+
+        StorageReference ref = storageReference.child(user.getUid() + "/profile.jpg");
 
         btnSaveInfo.setOnClickListener(this);
         btnLogout.setOnClickListener(this);
         menuSelectStore.setOnClickListener(this);
+        menuProfile.setOnClickListener(this);
         btnChooseImage.setOnClickListener(this);
         btnChooseLocation.setOnClickListener(this);
     }
@@ -133,6 +126,9 @@ public class StoreEditProfileActivity extends AppCompatActivity implements View.
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        tvAddress = findViewById(R.id.tvAddress);
+        tvLatlng = findViewById(R.id.tvLatlng);
+        tvPlace = findViewById(R.id.tvPlace);
         tvStoreEmail = findViewById(R.id.tvStoreEmail);
         editTextName = findViewById(R.id.editTextName);
         editTextPhoneNumber = findViewById(R.id.editTextPhoneNumber);
@@ -141,11 +137,15 @@ public class StoreEditProfileActivity extends AppCompatActivity implements View.
         storeCapacity = findViewById(R.id.storeCapacity);
         aboutStore = findViewById(R.id.editTextAboutStore);
         menuSelectStore = findViewById(R.id.menuSelectStore);
+        menuProfile = findViewById(R.id.menuProfile);
+
         imageView = findViewById(R.id.imageView);
 
         btnChooseImage = findViewById(R.id.btnChooseImage);
+        btnChooseLocation = findViewById(R.id.btnChooseLocation);
         btnSaveInfo = findViewById(R.id.btnSaveInfo);
         btnLogout = findViewById(R.id.btnLogout);
+
     }
 
     @Override
@@ -195,6 +195,9 @@ public class StoreEditProfileActivity extends AppCompatActivity implements View.
                 e.printStackTrace();
             }
         }
+        if (v == menuProfile){
+            startActivity(new Intent(this, StoreProfileActivity.class));
+        }
     }
 
     //select image
@@ -211,19 +214,6 @@ public class StoreEditProfileActivity extends AppCompatActivity implements View.
 
         final FirebaseUser user = firebaseAuth.getCurrentUser();
         assert user != null;
-        final StorageReference storePicRef = FirebaseStorage.getInstance().getReference(user.getUid());
-
-        storePicRef.child(user.getUid() + "/profile").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-
-            }
-        });
 
         if (requestCode == PICK_IMAGE && data != null && data.getData() != null) {
             filepath = data.getData();
@@ -258,6 +248,7 @@ public class StoreEditProfileActivity extends AppCompatActivity implements View.
             progressDialog.setTitle("Uploading...");
             progressDialog.show();
 
+            assert user != null;
             StorageReference storePicRef = storageReference.child(user.getUid() + "/profile.jpg");
 
             storePicRef.putFile(filepath)

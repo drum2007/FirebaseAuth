@@ -1,26 +1,22 @@
 package com.beam.firebaseauth;
 
-import android.app.Application;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.BaseAdapter;
-import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.view.ViewGroup;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -70,11 +66,13 @@ public class SelectStoreActivity extends AppCompatActivity implements View.OnCli
 
         listview = findViewById(R.id.listview);
         DatabaseReference storeRef = databaseReference.child("Store");
-        ArrayAdapter mAdapter = new FirebaseListView<StoreInformation>(this, StoreInformation.class, R.layout.listview_store, listview);
+        //ArrayAdapter mAdapter = new FirebaseList<StoreInformation>(this, StoreInformation.class, R.layout.listview_store, listview);
+
+
     }
 
-    //Set store//
-    private void setStore(String storeID, ImageView image, final TextView name, final TextView day, TextView place) {
+    //Set store need image//
+    private void setStore(String storeID, final TextView name, final TextView day, TextView place) {
         Query storeQuery = databaseReference.child("Store").child(storeID).child("StoreInfo");
         storeQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

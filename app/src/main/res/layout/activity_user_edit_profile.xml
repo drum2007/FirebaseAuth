@@ -64,7 +64,7 @@
                         android:layout_height="match_parent"
                         android:layout_margin="10dp"
                         android:layout_weight="3"
-                        android:gravity="center_horizontal"
+                        android:gravity="center"
                         android:text="@string/full_name"
                         android:textSize="15sp" />
 
@@ -115,7 +115,7 @@
                 android:orientation="vertical">
 
                 <Button
-                    android:id="@+id/btnEditProfile"
+                    android:id="@+id/btnSaveInfo"
                     android:layout_width="160dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
