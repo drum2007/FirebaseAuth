@@ -10,17 +10,25 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.BaseAdapter;
+import android.widget.Adapter;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.view.ViewGroup;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class SelectStoreActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -41,6 +49,9 @@ public class SelectStoreActivity extends AppCompatActivity implements View.OnCli
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle actionBarDrawerToggle;
 
+    ListView listview;
+    ArrayList<String> list = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,23 +62,15 @@ public class SelectStoreActivity extends AppCompatActivity implements View.OnCli
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
-        bt1 = findViewById(R.id.bt1);
-        bt2 = findViewById(R.id.bt2);
-//        bt3 = findViewById(R.id.bt3);
+
         menuSelectStore = findViewById(R.id.menuSelectStore);
         menuProfile = findViewById(R.id.menuProfile);
-        im2 = findViewById(R.id.im2);
-        tv2day = findViewById(R.id.tv2day);
-        tv2name = findViewById(R.id.tv2name);
-        tv2place = findViewById(R.id.tv2place);
-
-        bt1.setOnClickListener(this);
-        bt2.setOnClickListener(this);
-//        bt3.setOnClickListener(this);
         menuProfile.setOnClickListener(this);
         menuSelectStore.setOnClickListener(this);
-        setStore("zWbUSFxT8HYu4ClL0jAj2C2v4dC2", im2, tv2name, tv2day, tv2place);
 
+        listview = findViewById(R.id.listview);
+        DatabaseReference storeRef = databaseReference.child("Store");
+        ArrayAdapter mAdapter = new FirebaseListView<StoreInformation>(this, StoreInformation.class, R.layout.listview_store, listview);
     }
 
     //Set store//
@@ -77,8 +80,7 @@ public class SelectStoreActivity extends AppCompatActivity implements View.OnCli
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    System.out.println("qqqqqqqqqqqqqqqq");
-                    System.out.println(dataSnapshot.child("storeName").getValue(String.class));
+
                     name.setText(dataSnapshot.child("storeName").getValue(String.class));
                     day.setText(dataSnapshot.child("openTime").getValue(String.class) + " - " + dataSnapshot.child("closeTime").getValue(String.class));
                 }
@@ -148,7 +150,7 @@ public class SelectStoreActivity extends AppCompatActivity implements View.OnCli
             intent.putExtra("id", "zWbUSFxT8HYu4ClL0jAj2C2v4dC2");
             startActivity(intent);
         }
-        if (v == menuProfile){
+        if (v == menuProfile) {
             firebaseAuth = FirebaseAuth.getInstance();
 
             //user
@@ -156,7 +158,7 @@ public class SelectStoreActivity extends AppCompatActivity implements View.OnCli
             userQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.getValue() != null){
+                    if (dataSnapshot.getValue() != null) {
                         startActivity(new Intent(getApplicationContext(), UserProfileActivity.class));
                     }
                 }
